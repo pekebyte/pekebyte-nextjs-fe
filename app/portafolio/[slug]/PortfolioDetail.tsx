@@ -17,6 +17,7 @@ import { getPortfolioMedia } from "@/lib/portfoliomedia";
 
 export default function PortfolioDetail({ project }) {
   const { mainImage, gallery } = getPortfolioMedia(project);
+  console.log("gallery", gallery);
 
   return (
     <div className="container mx-auto px-4 py-12">
@@ -39,12 +40,22 @@ export default function PortfolioDetail({ project }) {
                 {gallery.map((media, index) => (
                   <CarouselItem key={index}>
                     <div className="relative aspect-video overflow-hidden rounded-lg">
-                      <Image
-                        src={media.source_url || "/placeholder.svg"}
-                        alt={media.alt_text || `Media`}
-                        fill
-                        className="object-cover"
-                      />
+                      {media.mime_type?.startsWith("video/") ? (
+                        <video
+                          src={media.source_url}
+                          controls
+                          className="w-full h-full object-cover rounded-lg"
+                        >
+                          Your browser does not support the video tag.
+                        </video>
+                      ) : (
+                        <Image
+                          src={media.source_url || "/placeholder.svg"}
+                          alt={media.alt_text || `Media ${index + 1}`}
+                          fill
+                          className="object-cover"
+                        />
+                      )}
                     </div>
                   </CarouselItem>
                 ))}
@@ -57,6 +68,7 @@ export default function PortfolioDetail({ project }) {
               )}
             </Carousel>
           )}
+
         </div>
 
         <div className="space-y-6">
@@ -82,10 +94,10 @@ export default function PortfolioDetail({ project }) {
             <CardContent>
               <div className="flex flex-wrap gap-2">
                 {project.acf.technologies?.map((tech, index) => (
-                    <Badge key={`tech-${index}`} variant="secondary">
-                      {tech.technology}
-                    </Badge>
-                  ))}
+                  <Badge key={`tech-${index}`} variant="secondary">
+                    {tech.technology}
+                  </Badge>
+                ))}
               </div>
             </CardContent>
           </Card>
