@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
-// import Image from "next/image";
+import Image from "next/image";
 // import logo from "@/assets/pekebytelogo.svg";
 
 const Navigation = () => {
@@ -43,8 +43,7 @@ const Navigation = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="flex items-center gap-2 group">
-            {/* <Image src={logo} alt="Pekebyte" width={32} height={32} className="transition-transform group-hover:scale-110" /> */}
-            <span className="text-xl font-bold">Pekebyte</span>
+            <Image src="/pekebyteicon.svg" alt="Pekebyte" width={32} height={32} className="transition-transform group-hover:scale-110" />
           </Link>
 
           {/* Desktop Navigation */}

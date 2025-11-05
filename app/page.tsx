@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Code2, Rocket, Sparkles } from "lucide-react";
-
+import Image from "next/image";
 const Home = () => {
   return (
     <div className="min-h-screen">
@@ -12,7 +12,7 @@ const Home = () => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center animate-fade-in">
             <div className="inline-block mb-4">
-              <Code2 className="h-16 w-16 text-primary animate-float" />
+              <Image src="/pekebytelogo.svg" alt="Pekebyte logo" width={400} height={170} className="max-w-96 text-primary animate-float" />
             </div>
             <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
               Bienvenido a Pekebyte
