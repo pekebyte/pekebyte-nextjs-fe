@@ -1,42 +1,26 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
+@import "tailwindcss";
 @layer base {
   :root {
     --background: 0 0% 100%;
     --foreground: 180 7% 19%;
-
     --card: 0 0% 98%;
     --card-foreground: 180 7% 19%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 180 7% 19%;
-
     --primary: 205 60% 50%;
     --primary-foreground: 0 0% 100%;
-
     --secondary: 206 33% 90%;
     --secondary-foreground: 180 7% 19%;
-
     --muted: 206 33% 95%;
     --muted-foreground: 205 15% 45%;
-
     --accent: 205 80% 60%;
     --accent-foreground: 0 0% 100%;
-
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
-
     --border: 205 20% 88%;
     --input: 205 20% 88%;
     --ring: 205 60% 50%;
-
     --radius: 0.75rem;
-
-    --gradient-hero: linear-gradient(135deg, hsl(205 60% 50% / 0.1), hsl(205 80% 60% / 0.1));
-    --gradient-card: linear-gradient(135deg, hsl(206 33% 95%), hsl(205 37% 92%));
-    
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 180 7% 19%;
     --sidebar-primary: 205 60% 50%;
@@ -50,35 +34,23 @@
   .dark {
     --background: 210 25% 8%;
     --foreground: 206 33% 90%;
-
     --card: 210 25% 12%;
     --card-foreground: 206 33% 90%;
-
     --popover: 210 25% 10%;
     --popover-foreground: 206 33% 90%;
-
     --primary: 205 70% 55%;
     --primary-foreground: 0 0% 100%;
-
     --secondary: 210 25% 18%;
     --secondary-foreground: 206 33% 90%;
-
     --muted: 210 25% 15%;
     --muted-foreground: 205 20% 65%;
-
     --accent: 205 80% 60%;
     --accent-foreground: 0 0% 100%;
-
     --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 100%;
-
     --border: 210 25% 20%;
     --input: 210 25% 20%;
     --ring: 205 70% 55%;
-
-    --gradient-hero: linear-gradient(135deg, hsl(205 70% 55% / 0.15), hsl(205 80% 60% / 0.15));
-    --gradient-card: linear-gradient(135deg, hsl(210 25% 12%), hsl(210 25% 15%));
-
     --sidebar-background: 210 25% 10%;
     --sidebar-foreground: 206 33% 90%;
     --sidebar-primary: 205 70% 55%;
@@ -89,12 +61,14 @@
     --sidebar-ring: 205 70% 55%;
   }
 
-  body {
-    font-family: 'Poppins', sans-serif;
+  * {
+    border-color: hsl(var(--border));
   }
 
-  code, pre {
-    font-family: 'Fira Code', monospace;
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: system-ui, -apple-system, sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -102,12 +76,70 @@
   }
 }
 
-/* Global styles outside of @layer to avoid conflicts with Turbopack */
-* {
-  border-color: hsl(var(--border));
+@layer utilities {
+  .hover-scale {
+    transition: transform 0.3s ease;
+  }
+  
+  .hover-scale:hover {
+    transform: scale(1.05);
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-in forwards;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
-body {
-  background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
 }
