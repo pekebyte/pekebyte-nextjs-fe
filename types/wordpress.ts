@@ -8,6 +8,7 @@ export interface ACFImage {
 export interface PortfolioItem {
   id: number;
   slug: string;
+  categories: number[];
   title: {
     rendered: string;
   };

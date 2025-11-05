@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getPortfolioItem, getPortfolioItems } from "@/lib/wordpress";
+import { getPortfolioItemCategories, getPortfolioItem, getPortfolioItems } from "@/lib/wordpress";
 import PortfolioDetail from "./PortfolioDetail";
 
 export async function generateStaticParams() {
@@ -12,10 +12,10 @@ export async function generateStaticParams() {
 export default async function Page(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params;
   const project = await getPortfolioItem(slug);
-
+  const projectCategories = await getPortfolioItemCategories(project.categories || []);
   if (!project) {
     notFound();
   }
 
-  return <PortfolioDetail project={project} />;
+  return <PortfolioDetail project={project} categories={projectCategories} />;
 }

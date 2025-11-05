@@ -35,6 +35,10 @@ export async function getPortfolioCategories(): Promise<string[]> {
   return ['Todos', ...data.map((cat: any) => cat.name)];
 }
 
+export async function getPortfolioItemCategories(categoryIds: number[]): Promise<string[]> {
+  const data = await fetchAPI(`/categories?_embed&post_type=portafolio&include=${categoryIds.join(',')}`);
+  return data;
+}
 // Tutorial Functions
 export async function getTutorials(category?: string): Promise<Tutorial[]> {
   const categoryQuery = category && category !== 'Todos' ? `&tutorial_category=${category}` : '';

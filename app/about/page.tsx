@@ -1,124 +1,148 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Code2, Palette, Database, Smartphone, Award, Coffee } from "lucide-react";
+import { Code2, Coffee, Zap, Award } from "lucide-react";
 
-export default function About() {
-  const technologies = [
-    { name: "React & Next.js", level: 90 },
-    { name: "TypeScript", level: 85 },
-    { name: "Node.js", level: 80 },
-    { name: "Python", level: 75 },
-    { name: "SQL & NoSQL", level: 85 },
-  ];
-
-  const interests = [
-    { icon: Code2, title: "Desarrollo Web", description: "Creación de aplicaciones modernas" },
-    { icon: Palette, title: "UI/UX Design", description: "Diseño de interfaces intuitivas" },
-    { icon: Database, title: "Backend", description: "APIs y bases de datos" },
-    { icon: Smartphone, title: "Responsive", description: "Diseño móvil primero" },
-  ];
-
-  const certifications = [
-    { title: "Full Stack Web Development", issuer: "freeCodeCamp", year: "2023" },
-    { title: "React Professional", issuer: "Meta", year: "2023" },
-    { title: "AWS Solutions Architect", issuer: "Amazon", year: "2022" },
-  ];
-
+const About = () => {
   return (
-    <div className="container mx-auto px-4 py-12">
-      <h1 className="text-4xl font-bold mb-8">Sobre mí</h1>
+    <div className="min-h-screen py-20">
+      <div className="container mx-auto px-4">
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-5xl md:text-6xl font-bold mb-8 animate-fade-in">
+            Sobre mí
+          </h1>
 
-      <div className="grid lg:grid-cols-2 gap-8 mb-12">
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Code2 className="h-5 w-5" />
-              Full Stack Developer
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground">
-              Soy un desarrollador Full Stack apasionado por crear soluciones web innovadoras.
-              Con más de 5 años de experiencia, me especializo en React, Next.js y Node.js.
-              Me encanta aprender nuevas tecnologías y compartir conocimientos a través de tutoriales.
-            </p>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Coffee className="h-5 w-5" />
-              Filosofía
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-muted-foreground">
-              Creo en el código limpio, las mejores prácticas y el aprendizaje continuo.
-              Mi enfoque se centra en crear aplicaciones escalables, mantenibles y centradas en el usuario.
-            </p>
-          </CardContent>
-        </Card>
-      </div>
-
-      <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Tecnologías</h2>
-        <Card>
-          <CardContent className="pt-6">
-            <div className="space-y-4">
-              {technologies.map((tech) => (
-                <div key={tech.name}>
-                  <div className="flex justify-between mb-2">
-                    <span className="font-medium">{tech.name}</span>
-                    <span className="text-muted-foreground">{tech.level}%</span>
-                  </div>
-                  <div className="h-2 bg-secondary rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-primary transition-all duration-500"
-                      style={{ width: `${tech.level}%` }}
-                    />
-                  </div>
+          <div className="prose prose-lg max-w-none animate-fade-in-up">
+            <Card className="p-8 mb-8 bg-[var(--gradient-card)]">
+              <div className="flex items-start gap-6">
+                <div className="h-24 w-24 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
+                  <Code2 className="h-12 w-12 text-primary" />
                 </div>
-              ))}
+                <div>
+                  <h2 className="text-3xl font-bold mb-4">Desarrollador Full Stack</h2>
+                  <p className="text-muted-foreground text-lg leading-relaxed">
+                    Apasionado por crear soluciones web elegantes y eficientes. Me especializo en 
+                    tecnologías modernas como React, TypeScript, Node.js y más. Siempre en busca 
+                    de nuevos desafíos y oportunidades para aprender.
+                  </p>
+                </div>
+              </div>
+            </Card>
+
+            <div className="grid md:grid-cols-2 gap-6 mb-12">
+              <Card className="p-6 hover:shadow-lg transition-all duration-300">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="h-12 w-12 bg-accent/10 rounded-lg flex items-center justify-center">
+                    <Zap className="h-6 w-6 text-accent" />
+                  </div>
+                  <h3 className="text-xl font-bold">Tecnologías</h3>
+                </div>
+                <ul className="space-y-2 text-muted-foreground">
+                  <li>• React & TypeScript</li>
+                  <li>• Node.js & Express</li>
+                  <li>• PostgreSQL & MongoDB</li>
+                  <li>• Tailwind CSS</li>
+                  <li>• Git & GitHub</li>
+                </ul>
+              </Card>
+
+              <Card className="p-6 hover:shadow-lg transition-all duration-300">
+                <div className="flex items-center gap-4 mb-4">
+                  <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                    <Coffee className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="text-xl font-bold">Intereses</h3>
+                </div>
+                <ul className="space-y-2 text-muted-foreground">
+                  <li>• Desarrollo web moderno</li>
+                  <li>• Arquitectura de software</li>
+                  <li>• Open source</li>
+                  <li>• Educación en programación</li>
+                  <li>• Nuevas tecnologías</li>
+                </ul>
+              </Card>
             </div>
-          </CardContent>
-        </Card>
-      </div>
 
-      <div className="mb-12">
-        <h2 className="text-2xl font-bold mb-6">Intereses</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {interests.map((interest) => (
-            <Card key={interest.title}>
-              <CardHeader>
-                <interest.icon className="h-8 w-8 text-primary mb-2" />
-                <CardTitle className="text-lg">{interest.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">{interest.description}</p>
-              </CardContent>
+            <Card className="p-8 bg-[var(--gradient-card)]">
+              <h3 className="text-2xl font-bold mb-4">Mi filosofía</h3>
+              <p className="text-muted-foreground text-lg leading-relaxed">
+                Creo en el código limpio, las mejores prácticas y el aprendizaje continuo. 
+                Mi objetivo es crear aplicaciones que no solo funcionen bien, sino que también 
+                sean mantenibles, escalables y accesibles para todos.
+              </p>
             </Card>
-          ))}
-        </div>
-      </div>
 
-      <div>
-        <h2 className="text-2xl font-bold mb-6">Certificaciones</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {certifications.map((cert) => (
-            <Card key={cert.title}>
-              <CardHeader>
-                <Award className="h-8 w-8 text-primary mb-2" />
-                <CardTitle className="text-lg">{cert.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">{cert.issuer}</p>
-                <Badge variant="secondary" className="mt-2">{cert.year}</Badge>
-              </CardContent>
-            </Card>
-          ))}
+            {/* Certifications Section */}
+            <div className="mt-12">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <Award className="h-6 w-6 text-primary" />
+                </div>
+                <h2 className="text-3xl font-bold">Certificaciones</h2>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-6">
+                <Card className="p-6 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Award className="h-6 w-6 text-primary" />
+                    </div>
+                    <Badge variant="secondary">2024</Badge>
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">React Advanced Certification</h3>
+                  <p className="text-muted-foreground mb-3">Meta (Facebook)</p>
+                  <p className="text-sm text-muted-foreground">
+                    Certificación avanzada en React, hooks, performance optimization y arquitectura de componentes.
+                  </p>
+                </Card>
+
+                <Card className="p-6 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="h-12 w-12 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Award className="h-6 w-6 text-accent" />
+                    </div>
+                    <Badge variant="secondary">2023</Badge>
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">Full Stack Web Development</h3>
+                  <p className="text-muted-foreground mb-3">freeCodeCamp</p>
+                  <p className="text-sm text-muted-foreground">
+                    Certificación completa en desarrollo full stack con Node.js, Express, MongoDB y React.
+                  </p>
+                </Card>
+
+                <Card className="p-6 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Award className="h-6 w-6 text-primary" />
+                    </div>
+                    <Badge variant="secondary">2023</Badge>
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">TypeScript Professional</h3>
+                  <p className="text-muted-foreground mb-3">Microsoft</p>
+                  <p className="text-sm text-muted-foreground">
+                    Certificación profesional en TypeScript, tipos avanzados, genéricos y mejores prácticas.
+                  </p>
+                </Card>
+
+                <Card className="p-6 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="h-12 w-12 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Award className="h-6 w-6 text-accent" />
+                    </div>
+                    <Badge variant="secondary">2022</Badge>
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">JavaScript Algorithms</h3>
+                  <p className="text-muted-foreground mb-3">freeCodeCamp</p>
+                  <p className="text-sm text-muted-foreground">
+                    Certificación en algoritmos y estructuras de datos con JavaScript.
+                  </p>
+                </Card>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default About;
