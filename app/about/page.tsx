@@ -1,5 +1,5 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/src/components/ui/card";
-import { Badge } from "@/src/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { Code2, Palette, Database, Smartphone, Award, Coffee } from "lucide-react";
 
 export default function About() {

@@ -1,4 +1,6 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   :root {
@@ -86,15 +88,8 @@
     --sidebar-border: 210 25% 20%;
     --sidebar-ring: 205 70% 55%;
   }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
 
   body {
-    @apply bg-background text-foreground;
     font-family: 'Poppins', sans-serif;
   }
 
@@ -105,4 +100,14 @@
   h1, h2, h3, h4, h5, h6 {
     font-weight: 700;
   }
+}
+
+/* Global styles outside of @layer to avoid conflicts with Turbopack */
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
 }

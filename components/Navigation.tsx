@@ -1,13 +1,17 @@
-import { Link, useLocation } from "react-router-dom";
+'use client';
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
-import logo from "@/assets/pekebytelogo.svg";
+// import Image from "next/image";
+// import logo from "@/assets/pekebytelogo.svg";
 
 const Navigation = () => {
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation();
+  const pathname = usePathname();
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
@@ -32,14 +36,15 @@ const Navigation = () => {
     { path: "/contact", label: "Contacto" },
   ];
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string) => pathname === path;
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center gap-2 group">
-            <img src={logo} alt="Pekebyte" className="h-8 w-auto transition-transform group-hover:scale-110" />
+          <Link href="/" className="flex items-center gap-2 group">
+            {/* <Image src={logo} alt="Pekebyte" width={32} height={32} className="transition-transform group-hover:scale-110" /> */}
+            <span className="text-xl font-bold">Pekebyte</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -47,7 +52,7 @@ const Navigation = () => {
             {navLinks.map((link) => (
               <Link
                 key={link.path}
-                to={link.path}
+                href={link.path}
                 className={`text-sm font-medium transition-colors relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:bg-primary after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left ${
                   isActive(link.path)
                     ? "text-primary after:scale-x-100"
@@ -101,7 +106,7 @@ const Navigation = () => {
             {navLinks.map((link) => (
               <Link
                 key={link.path}
-                to={link.path}
+                href={link.path}
                 onClick={() => setIsMenuOpen(false)}
                 className={`block py-2 text-sm font-medium transition-colors ${
                   isActive(link.path)
