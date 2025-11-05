@@ -4,6 +4,7 @@ const WP_API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'http://localhos
 
 async function fetchAPI(endpoint: string, options = {}) {
   const headers = { 'Content-Type': 'application/json' };
+  console.log("fetchAPI", `${WP_API_URL}${endpoint}`)
   const res = await fetch(`${WP_API_URL}${endpoint}`, {
     headers,
     ...options,
@@ -19,7 +20,7 @@ async function fetchAPI(endpoint: string, options = {}) {
 
 // Portfolio Functions
 export async function getPortfolioItems(category?: string): Promise<PortfolioItem[]> {
-  const categoryQuery = category && category !== 'Todos' ? `&portafolio_category=${category}` : '';
+  const categoryQuery = category && category !== 'Todos' ? `&category=${category}` : '';
   const data = await fetchAPI(`/portafolio?_embed${categoryQuery}&per_page=100`);
   return data;
 }

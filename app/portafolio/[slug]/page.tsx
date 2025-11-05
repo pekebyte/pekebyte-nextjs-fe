@@ -9,8 +9,9 @@ export async function generateStaticParams() {
   }));
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const project = await getPortfolioItem(params.slug);
+export default async function Page(props: { params: Promise<{ slug: string }> }) {
+  const { slug } = await props.params;
+  const project = await getPortfolioItem(slug);
 
   if (!project) {
     notFound();

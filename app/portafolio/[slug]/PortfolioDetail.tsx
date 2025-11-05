@@ -13,16 +13,17 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import { getPortfolioMedia } from "@/lib/portfoliomedia";
 
 export default function PortfolioDetail({ project }) {
-  const mediaItems = project.acf.gallery || [project.acf.image];
+  const { mainImage, gallery } = getPortfolioMedia(project);
 
   return (
     <div className="container mx-auto px-4 py-12">
       <Button asChild variant="ghost" className="mb-6">
-        <Link href="/portfolio">
+        <Link href="/portafolio">
           <ArrowLeft className="mr-2 h-4 w-4" />
-          Volver al Portfolio
+          Volver al Portafolio
         </Link>
       </Button>
 
@@ -32,15 +33,15 @@ export default function PortfolioDetail({ project }) {
           <Badge className="mb-4">{project.acf.category}</Badge>
           <p className="text-muted-foreground mb-6">{project.acf.description}</p>
 
-          {mediaItems.length > 0 && (
+          {gallery.length > 0 && (
             <Carousel className="w-full">
               <CarouselContent>
-                {mediaItems.map((media, index) => (
+                {gallery.map((media, index) => (
                   <CarouselItem key={index}>
                     <div className="relative aspect-video overflow-hidden rounded-lg">
                       <Image
-                        src={media.url}
-                        alt={media.alt || `Media ${index + 1}`}
+                        src={media.source_url || "/placeholder.svg"}
+                        alt={media.alt_text || `Media`}
                         fill
                         className="object-cover"
                       />
@@ -48,7 +49,7 @@ export default function PortfolioDetail({ project }) {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              {mediaItems.length > 1 && (
+              {gallery.length > 1 && (
                 <>
                   <CarouselPrevious />
                   <CarouselNext />
@@ -66,8 +67,8 @@ export default function PortfolioDetail({ project }) {
               </CardHeader>
               <CardContent>
                 <ul className="list-disc list-inside space-y-2">
-                  {project.acf.features.map((feature, index) => (
-                    <li key={index}>{feature}</li>
+                  {project.acf.features.map((item, index) => (
+                    <li key={index}>{item.feature}</li>
                   ))}
                 </ul>
               </CardContent>
@@ -80,11 +81,11 @@ export default function PortfolioDetail({ project }) {
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-2">
-                {project.acf.technologies?.map((tech) => (
-                  <Badge key={tech} variant="secondary">
-                    {tech}
-                  </Badge>
-                ))}
+                {project.acf.technologies?.map((tech, index) => (
+                    <Badge key={`tech-${index}`} variant="secondary">
+                      {tech.technology}
+                    </Badge>
+                  ))}
               </div>
             </CardContent>
           </Card>
