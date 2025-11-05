@@ -21,14 +21,14 @@ const Home = () => {
               Desarrollo web, tutoriales y contenido de programación
             </p>
             <div className="flex flex-wrap gap-4 justify-center animate-fade-in-up">
-              <Link href="/portfolio">
-                <Button size="lg" className="gap-2">
+              <Link href="/portafolio">
+                <Button size="lg" className="gap-2 cursor-pointer">
                   <Rocket className="h-5 w-5" />
                   Ver Portfolio
                 </Button>
               </Link>
-              <Link href="/tutorials">
-                <Button size="lg" variant="outline" className="gap-2">
+              <Link href="/tutoriales">
+                <Button size="lg" variant="outline" className="gap-2 cursor-pointer">
                   <Sparkles className="h-5 w-5" />
                   Explorar Tutoriales
                 </Button>
