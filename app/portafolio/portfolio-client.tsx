@@ -64,6 +64,7 @@ export default function PortfolioClient() {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {items.map((item, index) => {
                         const { mainImage } = getPortfolioMedia(item);
+                        console.log("mainImage", mainImage)
                         return (
                             <Link
                                 key={item.id}

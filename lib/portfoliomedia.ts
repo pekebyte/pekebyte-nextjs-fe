@@ -1,3 +1,4 @@
+import { PortfolioItem } from "@/types/wordpress";
 // Helper function to get media from embedded data
 export function getPortfolioMedia(item: PortfolioItem) {
   const embedded = item._embedded?.['acf:attachment'];

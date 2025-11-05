@@ -40,7 +40,7 @@ export default function PortfolioDetail({ project, categories }) {
           </div>
 
           <div className="rounded-xl overflow-hidden mb-12 shadow-2xl">
-            {gallery && gallery.length > 0 ? (
+            {gallery && gallery.length > 1 ? (
               <Carousel className="w-full">
                 <CarouselContent>
                   {gallery.map((media, index) => (
@@ -140,7 +140,7 @@ export default function PortfolioDetail({ project, categories }) {
 
                   {project.acf.github_link && (
 
-                    <Button className="w-full gap-2 flex-1" variant="outline" z>
+                    <Button className="w-full gap-2 flex-1" variant="outline">
                       <Link
                         href={project.acf.github_link}
                         target="_blank"
