@@ -1,65 +1,84 @@
-import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/src/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/src/components/ui/card";
+import { Code2, BookOpen, Laptop } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-secondary/10 py-20 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto text-center">
+          <div className="animate-fade-in">
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              Bienvenido a Pekebyte
+            </h1>
+            <p className="text-xl sm:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+              Full Stack Developer apasionado por crear experiencias web excepcionales
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button asChild size="lg" className="text-lg">
+                <Link href="/portfolio">Ver Portfolio</Link>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="text-lg">
+                <Link href="/tutorials">Explorar Tutoriales</Link>
+              </Button>
+            </div>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto">
+          <div className="grid md:grid-cols-3 gap-8">
+            <Card className="hover-scale">
+              <CardHeader>
+                <Code2 className="h-12 w-12 mb-4 text-primary" />
+                <CardTitle>Portfolio</CardTitle>
+                <CardDescription>
+                  Proyectos destacados y casos de estudio
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button asChild variant="ghost" className="w-full">
+                  <Link href="/portfolio">Ver Proyectos</Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="hover-scale">
+              <CardHeader>
+                <BookOpen className="h-12 w-12 mb-4 text-primary" />
+                <CardTitle>Tutoriales</CardTitle>
+                <CardDescription>
+                  Guías y recursos de programación
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button asChild variant="ghost" className="w-full">
+                  <Link href="/tutorials">Ver Tutoriales</Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="hover-scale">
+              <CardHeader>
+                <Laptop className="h-12 w-12 mb-4 text-primary" />
+                <CardTitle>Desarrollo</CardTitle>
+                <CardDescription>
+                  Soluciones web personalizadas
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Button asChild variant="ghost" className="w-full">
+                  <Link href="/contact">Contactar</Link>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
         </div>
-      </main>
+      </section>
     </div>
   );
 }
