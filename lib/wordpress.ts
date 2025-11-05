@@ -4,7 +4,6 @@ const WP_API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'http://localhos
 
 async function fetchAPI(endpoint: string, options = {}) {
   const headers = { 'Content-Type': 'application/json' };
-
   const res = await fetch(`${WP_API_URL}${endpoint}`, {
     headers,
     ...options,
@@ -20,18 +19,18 @@ async function fetchAPI(endpoint: string, options = {}) {
 
 // Portfolio Functions
 export async function getPortfolioItems(category?: string): Promise<PortfolioItem[]> {
-  const categoryQuery = category && category !== 'Todos' ? `&portfolio_category=${category}` : '';
-  const data = await fetchAPI(`/portfolio?_embed${categoryQuery}&per_page=100`);
+  const categoryQuery = category && category !== 'Todos' ? `&portafolio_category=${category}` : '';
+  const data = await fetchAPI(`/portafolio?_embed${categoryQuery}&per_page=100`);
   return data;
 }
 
 export async function getPortfolioItem(slug: string): Promise<PortfolioItem> {
-  const data = await fetchAPI(`/portfolio?slug=${slug}&_embed`);
+  const data = await fetchAPI(`/portafolio?slug=${slug}&_embed`);
   return data[0];
 }
 
 export async function getPortfolioCategories(): Promise<string[]> {
-  const data = await fetchAPI('/portfolio_category?per_page=100');
+  const data = await fetchAPI('/categories?_embed&post_type=portafolio?per_page=100');
   return ['Todos', ...data.map((cat: any) => cat.name)];
 }
 
