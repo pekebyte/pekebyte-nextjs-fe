@@ -55,7 +55,6 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function Page(props: { params: Promise<{ slug: string }> }) {
   const { slug } = await props.params;
   const project = await getPortfolioItem(slug);
-  console.log("project", project['portfolio-category']);
   const projectCategories = await getPortfolioItemCategories(project['portfolio-category'] || []);
   if (!project) {
     notFound();
