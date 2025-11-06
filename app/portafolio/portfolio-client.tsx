@@ -11,12 +11,19 @@ import { ExternalLink } from "lucide-react";
 import { getPortfolioItems, getPortfolioCategories } from "@/lib/wordpress";
 import { getPortfolioMedia } from "@/lib/portfoliomedia";
 import { se } from "date-fns/locale";
+import { PortfolioTechnology } from "@/types/wordpress";
+
+type Category = {
+  id: number;
+  name: string;
+  slug: string;
+};
 
 export default function PortfolioClient() {
     const searchParams = useSearchParams();
     const selectedCategory = searchParams.get("category") || "Todos";
 
-    const [categories, setCategories] = useState<string[]>([]);
+    const [categories, setCategories] = useState<Category[]>([]);
     const [items, setItems] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -62,7 +69,7 @@ export default function PortfolioClient() {
                         <Button
                             key={category.id}
                             asChild
-                            variant={selectedCategory == category.id ? "default" : "outline"}
+                            variant={selectedCategory == `${category.id}` ? "default" : "outline"}
                         >
                             <Link href={`/portafolio?category=${category.id}`}>
                                 {category.name}
@@ -100,7 +107,7 @@ export default function PortfolioClient() {
                                     </CardHeader>
                                     <CardContent>
                                         <div className="flex flex-wrap gap-2">
-                                            {item.acf.technologies?.map((tech, index) => (
+                                            {item.acf.technologies?.map((tech : PortfolioTechnology, index: number) => (
                                                 <Badge key={`tech-${index}`} variant="secondary">
                                                     {tech.technology}
                                                 </Badge>

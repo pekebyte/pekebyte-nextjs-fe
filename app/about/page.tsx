@@ -1,6 +1,7 @@
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Code2, Coffee, Zap, Award } from "lucide-react";
+import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
 

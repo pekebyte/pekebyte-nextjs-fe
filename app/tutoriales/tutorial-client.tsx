@@ -10,12 +10,19 @@ import { Badge } from "@/components/ui/badge";
 import { ExternalLink } from "lucide-react";
 import { getTutorialCategories, getTutorials } from "@/lib/wordpress";
 import { getPortfolioMedia } from "@/lib/portfoliomedia";
+import { PortfolioTechnology } from "@/types/wordpress";
+
+type Category = {
+  id: number;
+  name: string;
+  slug: string;
+};  
 
 export default function TutorialClient() {
     const searchParams = useSearchParams();
     const selectedCategory = searchParams.get("category") || "Todos";
 
-    const [categories, setCategories] = useState<string[]>([]);
+    const [categories, setCategories] = useState<Category[]>([]);
     const [items, setItems] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -27,8 +34,6 @@ export default function TutorialClient() {
                 getTutorialCategories(),
                 getTutorials(selectedCategory !== "Todos" ? selectedCategory : undefined),
             ]);
-            console.log("cats", cats);
-            cats = cats.filter(cat => cat.id !== 1);
             setCategories(cats);
             setItems(tutorials);
             setLoading(false);
@@ -61,9 +66,9 @@ export default function TutorialClient() {
                         <Button
                             key={category.id}
                             asChild
-                            variant={selectedCategory === category ? "default" : "outline"}
+                            variant={selectedCategory === `${category.id}` ? "default" : "outline"}
                         >
-                            <Link href={`/portafolio${category !== "Todos" ? `?category=${category.id}` : ""}`}>
+                            <Link href={`/portafolio?category=${category.id}`}>
                                 {category.name}
                             </Link>
                         </Button>
@@ -100,7 +105,7 @@ export default function TutorialClient() {
                                     </CardHeader>
                                     <CardContent>
                                         <div className="flex flex-wrap gap-2">
-                                            {item.acf.technologies?.map((tech, index) => (
+                                            {item.acf.technologies?.map((tech : PortfolioTechnology, index: number) => (
                                                 <Badge key={`tech-${index}`} variant="secondary">
                                                     {tech.technology}
                                                 </Badge>

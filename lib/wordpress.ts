@@ -2,6 +2,12 @@ import { PortfolioItem, Tutorial, Page, ACFImageTwo } from '@/types/wordpress';
 
 const WP_API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'http://localhost/wp-json/wp/v2';
 
+type Category = {
+  id: number;
+  name: string;
+  slug: string;
+};
+
 async function fetchAPI(endpoint: string, options = {}) {
   const headers = { 'Content-Type': 'application/json' };
   const res = await fetch(`${WP_API_URL}${endpoint}`, {
@@ -29,12 +35,12 @@ export async function getPortfolioItem(slug: string): Promise<PortfolioItem> {
   return data[0];
 }
 
-export async function getPortfolioCategories(): Promise<string[]> {
+export async function getPortfolioCategories(): Promise<Category[]> {
   const data = await fetchAPI('/portfolio-category?_embed&post_type=portafolio?per_page=100');
   return data;
 }
 
-export async function getPortfolioItemCategories(categoryIds: number[]): Promise<string[]> {
+export async function getPortfolioItemCategories(categoryIds: number[]): Promise<Category[]> {
   const data = await fetchAPI(`/portfolio-category?_embed&post_type=portafolio&include=${categoryIds.join(',')}`);
   return data;
 }
@@ -50,7 +56,7 @@ export async function getTutorial(slug: string): Promise<Tutorial> {
   return data[0];
 }
 
-export async function getTutorialCategories(): Promise<string[]> {
+export async function getTutorialCategories(): Promise<Category[]> {
   const data = await fetchAPI('/categories?_embed&post_type=tutorial?per_page=100');
   return ['Todos', ...data.map((cat: any) => cat.name)];
 }

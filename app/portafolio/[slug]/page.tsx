@@ -1,7 +1,13 @@
 import { notFound } from "next/navigation";
 import { getPortfolioItemCategories, getPortfolioItem, getPortfolioItems, getMediaUrl } from "@/lib/wordpress";
 import PortfolioDetail from "./PortfolioDetail";
+import type { Metadata } from "next";
 
+type Category = {
+  id: number;
+  name: string;
+  slug: string;
+};
 
 export async function generateStaticParams() {
   const items = await getPortfolioItems();
@@ -20,7 +26,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 
   const title = project.acf?.meta_title || project.title?.rendered || "Portfolio";
-  const description = project.acf?.meta_description || project.excerpt?.rendered || "";
+  const description = project.acf?.meta_description || "";
   const keywords = project.acf?.meta_keywords || "";
   
   let ogImageUrl = "";

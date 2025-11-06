@@ -1,7 +1,7 @@
 import { PortfolioItem } from "@/types/wordpress";
 // Helper function to get media from embedded data
 export function getPortfolioMedia(item: PortfolioItem) {
-  const embedded = item._embedded?.['acf:attachment'];
+  const embedded: any = (item._embedded as any)?.['acf:attachment'];
   
   if (!embedded) {
     return {
@@ -11,11 +11,15 @@ export function getPortfolioMedia(item: PortfolioItem) {
   }
 
   // Get main image (first item in acf.image)
-  const mainImage = embedded.find(media => media.id === item.acf.image);
+  const mainImage = embedded.find(
+  (media: { id: number; source_url: string; alt_text?: string }) =>
+    media.id === item.acf.image
+);
   
   // Get gallery items
   const gallery = item.acf.gallery
-    ?.map(galleryId => embedded.find(media => media.id === galleryId))
+    ?.map(galleryId => embedded.find((media: { id: number; source_url: string; alt_text?: string }) =>
+    media.id === galleryId))
     .filter(Boolean); // Remove undefined items
 
   return {

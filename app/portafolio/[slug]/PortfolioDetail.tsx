@@ -14,8 +14,20 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { getPortfolioMedia } from "@/lib/portfoliomedia";
+import { PortfolioItem } from "@/types/wordpress";
 
-export default function PortfolioDetail({ project, categories }) {
+type Category = {
+  id: number;
+  name: string;
+  slug: string;
+};
+
+type Props = {
+  project: PortfolioItem;
+  categories: Category[]; // o el tipo adecuado
+};
+
+export default function PortfolioDetail({ project , categories } : Props) {
   const { mainImage, gallery } = getPortfolioMedia(project);
   return (
     <div className="min-h-screen py-20">
@@ -93,7 +105,7 @@ export default function PortfolioDetail({ project, categories }) {
               <Card className="p-8">
                 <h2 className="text-3xl font-bold mb-6">Características</h2>
                 <ul className="space-y-3">
-                  {project.acf.features.map((feature, index) => (
+                  {project.acf.features?.map((feature, index) => (
                     <li key={`feature-${index}`} className="flex items-start gap-3">
                       <div className="h-6 w-6 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                         <div className="h-2 w-2 rounded-full bg-primary" />
@@ -111,7 +123,7 @@ export default function PortfolioDetail({ project, categories }) {
               <Card className="p-6">
                 <h3 className="text-xl font-bold mb-4">Tecnologías</h3>
                 <div className="flex flex-wrap gap-2">
-                  {project.acf.technologies.map((tech, index) => (
+                  {project.acf.technologies?.map((tech, index) => (
                     <Badge key={`tech-${index}`} variant="outline">
                       {typeof tech === "string"
                         ? tech

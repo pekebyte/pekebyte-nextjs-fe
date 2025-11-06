@@ -11,6 +11,13 @@ export interface ACFImageTwo {
   media_type: string;
 }
 
+export interface PortfolioFeature {
+  feature: string;
+}
+
+export interface PortfolioTechnology {
+  technology: string;
+}
 
 export interface PortfolioItem {
   id: number;
@@ -19,22 +26,28 @@ export interface PortfolioItem {
   title: {
     rendered: string;
   };
+  'portfolio-category'?: number[];
   acf: {
     category: string;
     description: string;
     short_description: string;
-    technologies: string[];
-    image: ACFImage;
-    gallery?: ACFImage[];
-    features?: string[];
+    technologies: PortfolioTechnology[];
+    image: number;
+    gallery?: number[];
     demo_link?: string;
     github_link?: string;
+    meta_title?: string;
+    meta_description?: string;
+    meta_keywords?: string;
+    ogimage?: number;
+    features?: PortfolioFeature[];
   };
   _embedded?: {
     'wp:featuredmedia'?: Array<{
       source_url: string;
       alt_text: string;
     }>;
+    
   };
 }
 

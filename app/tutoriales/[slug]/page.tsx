@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { getTutorial, getTutorials } from "@/lib/wordpress";
 import { ArrowLeft, Clock, TrendingUp } from "lucide-react";
+import type { Metadata } from "next";
 
 export async function generateStaticParams() {
   const tutorials = await getTutorials();

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Code2, Rocket, Sparkles } from "lucide-react";
 import Image from "next/image";
+import type { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
 

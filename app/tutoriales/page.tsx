@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import TutorialClient from "./tutorial-client";
+import type { Metadata } from "next";
 
 export const revalidate = 3600; // Revalidate every hour
 
