@@ -20,13 +20,16 @@ export default function PortfolioClient() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
+        console.log("useEffect ejecutado, selectedCategory:", selectedCategory);
+
         async function fetchData() {
+            console.log("fetchData llamado");
             setLoading(true);
             let [cats, projects] = await Promise.all([
                 getPortfolioCategories(),
                 getPortfolioItems(selectedCategory !== "Todos" ? selectedCategory : undefined),
             ]);
-            cats = cats.filter(cat => cat !== "Sin categoría");
+            cats = cats.filter(cat => cat.id !== 1);
             setCategories(cats);
             setItems(projects);
             setLoading(false);
@@ -48,14 +51,21 @@ export default function PortfolioClient() {
                 </p>
 
                 <div className="flex flex-wrap gap-2 mb-8">
+                    <Button
+                        variant={selectedCategory === "Todos" ? "default" : "outline"}
+                    >
+                        <Link href={`/portafolio?category=Todos`}>
+                            Todos
+                        </Link>
+                    </Button>
                     {categories.map((category) => (
                         <Button
-                            key={category}
+                            key={category.id}
                             asChild
                             variant={selectedCategory === category ? "default" : "outline"}
                         >
-                            <Link href={`/portafolio${category !== "Todos" ? `?category=${category}` : ""}`}>
-                                {category}
+                            <Link href={`/portafolio${category !== "Todos" ? `?category=${category.id}` : ""}`}>
+                                {category.name}
                             </Link>
                         </Button>
                     ))}

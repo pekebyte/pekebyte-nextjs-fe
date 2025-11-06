@@ -20,7 +20,7 @@ async function fetchAPI(endpoint: string, options = {}) {
 
 // Portfolio Functions
 export async function getPortfolioItems(category?: string): Promise<PortfolioItem[]> {
-  const categoryQuery = category && category !== 'Todos' ? `&category=${category}` : '';
+  const categoryQuery = category && category !== 'Todos' ? `&categories=${category}` : '';
   const data = await fetchAPI(`/portafolio?_embed${categoryQuery}&per_page=100`);
   return data;
 }
@@ -32,7 +32,7 @@ export async function getPortfolioItem(slug: string): Promise<PortfolioItem> {
 
 export async function getPortfolioCategories(): Promise<string[]> {
   const data = await fetchAPI('/categories?_embed&post_type=portafolio?per_page=100');
-  return ['Todos', ...data.map((cat: any) => cat.name)];
+  return data;
 }
 
 export async function getPortfolioItemCategories(categoryIds: number[]): Promise<string[]> {
