@@ -2,6 +2,35 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Home } from "lucide-react";
 
+export async function generateMetadata(): Promise<Metadata> {
+
+  const title = "Pekebyte - No Encontrado";
+  const description = "La página que buscas no se ha encontrado.";
+  const keywords = "Portfolio, Proyectos, Desarrollo Web, Diseño, Soluciones Digitales, Pekebyte";
+  const ogImageUrl = "/metadata/404.jpg"
+
+  const metadata: Metadata = {
+    title,
+    description,
+    keywords,
+  };
+
+  metadata.openGraph = {
+      title,
+      description,
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: "Portfolio page",
+        },
+      ],
+    };
+
+  return metadata;
+}
+
 export default function NotFound() {
   return (
     <div className="min-h-screen flex items-center justify-center px-4">

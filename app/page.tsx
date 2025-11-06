@@ -3,6 +3,36 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Code2, Rocket, Sparkles } from "lucide-react";
 import Image from "next/image";
+
+export async function generateMetadata(): Promise<Metadata> {
+
+  const title = "Pekebyte - Inicio";
+  const description = "Bienvenido a Pekebyte, tu destino para desarrollo web, tutoriales de programación y contenido tecnológico de vanguardia.";
+  const keywords = "Desarrollo Web, Tutoriales, Programación, Tecnología, Pekebyte";
+  const ogImageUrl = "/metadata/home.jpg"
+
+  const metadata: Metadata = {
+    title,
+    description,
+    keywords,
+  };
+
+  metadata.openGraph = {
+      title,
+      description,
+      images: [
+        {
+          url: ogImageUrl,
+          width: 1200,
+          height: 630,
+          alt: "Portfolio page",
+        },
+      ],
+    };
+
+  return metadata;
+}
+
 const Home = () => {
   return (
     <div className="min-h-screen">
