@@ -8,11 +8,10 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink } from "lucide-react";
-import { getPortfolioItems, getPortfolioCategories } from "@/lib/wordpress";
+import { getTutorialCategories, getTutorials } from "@/lib/wordpress";
 import { getPortfolioMedia } from "@/lib/portfoliomedia";
-import { se } from "date-fns/locale";
 
-export default function PortfolioClient() {
+export default function TutorialClient() {
     const searchParams = useSearchParams();
     const selectedCategory = searchParams.get("category") || "Todos";
 
@@ -21,33 +20,33 @@ export default function PortfolioClient() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        console.log("useEffect ejecutado, selectedCategory:", selectedCategory);
 
         async function fetchData() {
             setLoading(true);
-            let [cats, projects] = await Promise.all([
-                getPortfolioCategories(),
-                getPortfolioItems(selectedCategory !== "Todos" ? selectedCategory : undefined),
+            let [cats, tutorials] = await Promise.all([
+                getTutorialCategories(),
+                getTutorials(selectedCategory !== "Todos" ? selectedCategory : undefined),
             ]);
+            console.log("cats", cats);
+            cats = cats.filter(cat => cat.id !== 1);
             setCategories(cats);
-            setItems(projects);
+            setItems(tutorials);
             setLoading(false);
         }
-        console.log("selectedCategory", selectedCategory);
 
         fetchData();
     }, [selectedCategory]);
 
     if (loading) {
-        return <div>Cargando proyectos...</div>;
+        return <div>Cargando tutoriales...</div>;
     }
 
     return (
         <div className="min-h-screen py-20">
             <div className="container mx-auto px-4">
-                <h1 className="text-5xl md:text-6xl font-bold mb-4 animate-fade-in">Portafolio</h1>
+                <h1 className="text-5xl md:text-6xl font-bold mb-4 animate-fade-in">Tutoriales</h1>
                 <p className="text-xl text-muted-foreground mb-12 animate-fade-in-up">
-                    Explora mis proyectos y casos de estudio
+                    Aprende desarrollo web con videos y ejemplos de código
                 </p>
 
                 <div className="flex flex-wrap gap-2 mb-8">
@@ -62,9 +61,9 @@ export default function PortfolioClient() {
                         <Button
                             key={category.id}
                             asChild
-                            variant={selectedCategory == category.id ? "default" : "outline"}
+                            variant={selectedCategory === category ? "default" : "outline"}
                         >
-                            <Link href={`/portafolio?category=${category.id}`}>
+                            <Link href={`/portafolio${category !== "Todos" ? `?category=${category.id}` : ""}`}>
                                 {category.name}
                             </Link>
                         </Button>
@@ -74,6 +73,7 @@ export default function PortfolioClient() {
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {items.map((item, index) => {
                         const { mainImage } = getPortfolioMedia(item);
+                        console.log("mainImage", mainImage)
                         return (
                             <Link
                                 key={item.id}
