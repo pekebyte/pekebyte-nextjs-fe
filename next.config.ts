@@ -5,18 +5,17 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'http',
-        hostname: 'pekebyte.test',
+        hostname: 'pekebyte.com',
         port: '',
         pathname: '/**',
       },
       {
         protocol: 'https',
-        hostname: 'pekebyte.test',
+        hostname: 'pekebyte.com',
         port: '',
         pathname: '/**',
       }
-    ],
-    unoptimized: true
+    ]
   },
 };
 
