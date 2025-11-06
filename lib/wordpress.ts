@@ -1,4 +1,4 @@
-import { PortfolioItem, Tutorial, Page } from '@/types/wordpress';
+import { PortfolioItem, Tutorial, Page, ACFImageTwo } from '@/types/wordpress';
 
 const WP_API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'http://localhost/wp-json/wp/v2';
 
@@ -78,4 +78,9 @@ export async function submitContactForm(formData: {
   });
 
   return res.json();
+}
+
+export async function getMediaUrl(id: number): Promise<ACFImageTwo | null> {
+  const data = await fetchAPI(`/media/${id}`);
+  return data || null;
 }

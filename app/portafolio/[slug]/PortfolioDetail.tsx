@@ -17,7 +17,6 @@ import { getPortfolioMedia } from "@/lib/portfoliomedia";
 
 export default function PortfolioDetail({ project, categories }) {
   const { mainImage, gallery } = getPortfolioMedia(project);
-
   return (
     <div className="min-h-screen py-20">
       <div className="container mx-auto px-4">

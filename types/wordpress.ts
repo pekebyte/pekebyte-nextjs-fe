@@ -5,6 +5,13 @@ export interface ACFImage {
   height: number;
 }
 
+export interface ACFImageTwo {
+  source_url: string;
+  alt_text: string;
+  media_type: string;
+}
+
+
 export interface PortfolioItem {
   id: number;
   slug: string;
