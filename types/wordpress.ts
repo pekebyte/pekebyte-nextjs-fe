@@ -51,6 +51,9 @@ export interface PortfolioItem {
   };
 }
 
+export interface Topic {
+  topic: string;
+}
 export interface Tutorial {
   id: number | ACFImageTwo | null;
   slug: string;
@@ -65,7 +68,7 @@ export interface Tutorial {
     thumbnail: number;
     video_id?: string;
     content?: string;
-    topics?: string[];
+    topics?: Topic[];
   };
   _embedded?: {
     'wp:featuredmedia'?: Array<{

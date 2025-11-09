@@ -82,7 +82,7 @@ export default function TutorialClient() {
                         return (
                             <Link
                                 key={item.id}
-                                href={`/portafolio/${item.slug}`}
+                                href={`/tutoriales/${item.slug}`}
                                 className="group animate-fade-in"
                                 style={{ animationDelay: `${index * 0.1}s` }}
                             >

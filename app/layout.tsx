@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import "prismjs/themes/prism-tomorrow.css";
 import { Poppins, Fira_Code } from 'next/font/google';
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
