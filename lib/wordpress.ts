@@ -46,7 +46,7 @@ export async function getPortfolioItemCategories(categoryIds: number[]): Promise
 }
 // Tutorial Functions
 export async function getTutorials(category?: string): Promise<Tutorial[]> {
-  const categoryQuery = category && category !== 'Todos' ? `&tutorial_category=${category}` : '';
+  const categoryQuery = category && category !== 'Todos' ? `&tutorial-category=${category}` : '';
   const data = await fetchAPI(`/tutorial?_embed${categoryQuery}&per_page=100`);
   return data;
 }
@@ -57,8 +57,8 @@ export async function getTutorial(slug: string): Promise<Tutorial> {
 }
 
 export async function getTutorialCategories(): Promise<Category[]> {
-  const data = await fetchAPI('/categories?_embed&post_type=tutorial?per_page=100');
-  return ['Todos', ...data.map((cat: any) => cat.name)];
+  const data = await fetchAPI('/tutorial-category?_embed&post_type=tutorial?per_page=100');
+  return data;
 }
 
 // Page Functions

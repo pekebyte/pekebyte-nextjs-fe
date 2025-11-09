@@ -34,9 +34,11 @@ export default function TutorialClient() {
                 getTutorialCategories(),
                 getTutorials(selectedCategory !== "Todos" ? selectedCategory : undefined),
             ]);
+            console.log("categories", cats);
             setCategories(cats);
             setItems(tutorials);
             setLoading(false);
+            
         }
 
         fetchData();
@@ -58,7 +60,7 @@ export default function TutorialClient() {
                     <Button
                         variant={selectedCategory === "Todos" ? "default" : "outline"}
                     >
-                        <Link href={`/portafolio?category=Todos`}>
+                        <Link href={`/tutoriales?category=Todos`}>
                             Todos
                         </Link>
                     </Button>
@@ -68,7 +70,7 @@ export default function TutorialClient() {
                             asChild
                             variant={selectedCategory === `${category.id}` ? "default" : "outline"}
                         >
-                            <Link href={`/portafolio?category=${category.id}`}>
+                            <Link href={`/tutoriales?category=${category.id}`}>
                                 {category.name}
                             </Link>
                         </Button>
