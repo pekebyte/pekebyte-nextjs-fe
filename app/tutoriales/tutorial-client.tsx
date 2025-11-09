@@ -7,16 +7,15 @@ import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink } from "lucide-react";
 import { getTutorialCategories, getTutorials } from "@/lib/wordpress";
-import { getPortfolioMedia } from "@/lib/portfoliomedia";
 import { PortfolioTechnology } from "@/types/wordpress";
+import { Play } from "lucide-react";
 
 type Category = {
-  id: number;
-  name: string;
-  slug: string;
-};  
+    id: number;
+    name: string;
+    slug: string;
+};
 
 export default function TutorialClient() {
     const searchParams = useSearchParams();
@@ -38,7 +37,7 @@ export default function TutorialClient() {
             setCategories(cats);
             setItems(tutorials);
             setLoading(false);
-            
+
         }
 
         fetchData();
@@ -79,8 +78,7 @@ export default function TutorialClient() {
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {items.map((item, index) => {
-                        const { mainImage } = getPortfolioMedia(item);
-                        console.log("mainImage", mainImage)
+                        console.log("item", item);
                         return (
                             <Link
                                 key={item.id}
@@ -91,29 +89,28 @@ export default function TutorialClient() {
                                 <Card key={item.id} className="overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full">
                                     <div className="relative h-48 overflow-hidden">
                                         <Image
-                                            src={mainImage?.source_url || "/placeholder.svg"}
-                                            alt={mainImage?.alt_text || ""}
+                                            src={item.acf.thumbnail?.source_url || "/placeholder.svg"}
+                                            alt={item.acf.thumbnail?.alt_text || ""}
                                             fill
-                                            className="object-cover"
+                                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                                             unoptimized
                                         />
-                                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-end p-4">
-                                            <ExternalLink className="h-6 w-6 text-white" />
+                                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                            <div className="h-16 w-16 rounded-full bg-primary flex items-center justify-center">
+                                                <Play className="h-8 w-8 text-white fill-white ml-1" />
+                                            </div>
                                         </div>
+                                        <Badge className="absolute top-4 right-4">{item.acf.duration}</Badge>
                                     </div>
                                     <CardHeader>
-                                        <CardTitle>{item.title.rendered}</CardTitle>
+                                        <div className="flex items-center justify-between mb-2">
+                                            <Badge variant="outline">{item.acf?.nivel}</Badge>
+                                        </div>
+                                        <CardTitle className="group-hover:text-primary transition-colors">
+                                            {item.title.rendered}
+                                        </CardTitle>
                                         <CardDescription>{item.acf.short_description || item.acf.description}</CardDescription>
                                     </CardHeader>
-                                    <CardContent>
-                                        <div className="flex flex-wrap gap-2">
-                                            {item.acf.technologies?.map((tech : PortfolioTechnology, index: number) => (
-                                                <Badge key={`tech-${index}`} variant="secondary">
-                                                    {tech.technology}
-                                                </Badge>
-                                            ))}
-                                        </div>
-                                    </CardContent>
                                 </Card>
                             </Link>
                         );

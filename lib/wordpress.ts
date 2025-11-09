@@ -47,7 +47,13 @@ export async function getPortfolioItemCategories(categoryIds: number[]): Promise
 // Tutorial Functions
 export async function getTutorials(category?: string): Promise<Tutorial[]> {
   const categoryQuery = category && category !== 'Todos' ? `&tutorial-category=${category}` : '';
-  const data = await fetchAPI(`/tutorial?_embed${categoryQuery}&per_page=100`);
+  let data = await fetchAPI(`/tutorial?_embed${categoryQuery}&per_page=100`);
+  data = await Promise.all(
+  data.map(async (tutorial: Tutorial) => {
+    tutorial.acf.thumbnail = await getMediaUrl(tutorial.acf.thumbnail);
+    return tutorial;
+  })
+);
   return data;
 }
 

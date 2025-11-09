@@ -52,7 +52,7 @@ export interface PortfolioItem {
 }
 
 export interface Tutorial {
-  id: number;
+  id: number | ACFImageTwo | null;
   slug: string;
   title: {
     rendered: string;
@@ -61,8 +61,8 @@ export interface Tutorial {
     category: string;
     description: string;
     duration: string;
-    level: 'Principiante' | 'Intermedio' | 'Avanzado';
-    thumbnail: ACFImage;
+    nivel: 'Principiante' | 'Intermedio' | 'Avanzado';
+    thumbnail: number;
     video_id?: string;
     content?: string;
     topics?: string[];
