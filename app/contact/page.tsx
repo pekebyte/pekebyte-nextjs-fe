@@ -25,7 +25,19 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
-      await submitContactForm(formData);
+      // Llamar a tu API endpoint
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al enviar el mensaje');
+      }
+
       toast({
         title: "Mensaje enviado",
         description: "Te responderé lo antes posible.",

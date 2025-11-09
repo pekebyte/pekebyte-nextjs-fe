@@ -55,7 +55,7 @@ export interface Topic {
   topic: string;
 }
 export interface Tutorial {
-  id: number | ACFImageTwo | null;
+  id: number;
   slug: string;
   title: {
     rendered: string;
@@ -66,9 +66,14 @@ export interface Tutorial {
     duration: string;
     nivel: 'Principiante' | 'Intermedio' | 'Avanzado';
     thumbnail: number;
+    thumbnail_url: ACFImageTwo | null;
     video_id?: string;
     content?: string;
     topics?: Topic[];
+    meta_title?: string;
+    meta_description?: string;
+    meta_keywords?: string;
+    ogimage?: number;
   };
   _embedded?: {
     'wp:featuredmedia'?: Array<{

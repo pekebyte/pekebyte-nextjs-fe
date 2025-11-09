@@ -50,7 +50,7 @@ export async function getTutorials(category?: string): Promise<Tutorial[]> {
   let data = await fetchAPI(`/tutorial?_embed${categoryQuery}&per_page=100`);
   data = await Promise.all(
   data.map(async (tutorial: Tutorial) => {
-    tutorial.acf.thumbnail = await getMediaUrl(tutorial.acf.thumbnail);
+    tutorial.acf.thumbnail_url = await getMediaUrl(tutorial.acf.thumbnail);
     return tutorial;
   })
 );
