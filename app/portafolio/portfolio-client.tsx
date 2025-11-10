@@ -28,7 +28,6 @@ export default function PortfolioClient() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        console.log("useEffect ejecutado, selectedCategory:", selectedCategory);
 
         async function fetchData() {
             setLoading(true);
@@ -40,7 +39,6 @@ export default function PortfolioClient() {
             setItems(projects);
             setLoading(false);
         }
-        console.log("selectedCategory", selectedCategory);
 
         fetchData();
     }, [selectedCategory]);

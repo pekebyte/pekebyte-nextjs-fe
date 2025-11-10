@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Navigation from "@/components/Navigation";
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -39,6 +40,7 @@ export default function RootLayout({
           {children}
         </TooltipProvider>
       </body>
+      <GoogleAnalytics gaId="G-EF72Q8YR64" />
     </html>
   );
 }
