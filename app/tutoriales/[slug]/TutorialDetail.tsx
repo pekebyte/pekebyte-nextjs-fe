@@ -55,7 +55,7 @@ export default function TutorialDetail({ tutorial } : Props) {
           <div className="grid md:grid-cols-3 gap-8">
             <div className="md:col-span-2">
               <Card className="p-8">
-                <div className="prose prose-lg max-w-none dark:prose-invert tutocontent" dangerouslySetInnerHTML={{__html: tutorial.acf?.content || ''}}>
+                <div className="prose prose-lg max-w-none dark:prose-invert tutocontent" dangerouslySetInnerHTML={{ __html: tutorial.acf?.content || '' }}>
                 </div>
               </Card>
             </div>
