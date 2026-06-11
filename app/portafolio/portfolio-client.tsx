@@ -2,14 +2,10 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink } from "lucide-react";
-import { getPortfolioItems, getPortfolioCategories } from "@/lib/wordpress";
-import { getPortfolioMedia } from "@/lib/portfoliomedia";
-import { se } from "date-fns/locale";
 import { PortfolioTechnology } from "@/types/wordpress";
 
 type Category = {
@@ -18,45 +14,25 @@ type Category = {
   slug: string;
 };
 
-export default function PortfolioClient({ categorySlug }: { categorySlug?: string }) {
+type MediaEntry = {
+  id: number;
+  mainImage: any;
+  gallery: any[];
+};
+
+export default function PortfolioClient({
+  categories,
+  items,
+  media,
+  categorySlug,
+}: {
+  categories: Category[];
+  items: any[];
+  media: MediaEntry[];
+  categorySlug?: string;
+}) {
     const selectedCategory = categorySlug || "Todos";
-
-    const [categories, setCategories] = useState<Category[]>([]);
-    const [items, setItems] = useState<any[]>([]);
-    const [mediaMap, setMediaMap] = useState<Map<number, { mainImage: any; gallery: any[] }>>(new Map());
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-
-        async function fetchData() {
-            setLoading(true);
-            const cats = await getPortfolioCategories();
-            setCategories(cats);
-
-            let categoryId: string | undefined;
-            if (selectedCategory !== "Todos") {
-                const found = cats.find(c => c.slug === selectedCategory);
-                if (found) categoryId = String(found.id);
-            }
-
-            const projects = await getPortfolioItems(categoryId);
-            setItems(projects);
-
-            const media = new Map<number, { mainImage: any; gallery: any[] }>();
-            await Promise.all(projects.map(async (item: any) => {
-                const result = await getPortfolioMedia(item);
-                media.set(item.id, result);
-            }));
-            setMediaMap(media);
-            setLoading(false);
-        }
-
-        fetchData();
-    }, [selectedCategory]);
-
-    if (loading) {
-        return <div>Cargando proyectos...</div>;
-    }
+    const mediaMap = new Map(media.map(m => [m.id, m]));
 
     return (
         <div className="min-h-screen py-20">

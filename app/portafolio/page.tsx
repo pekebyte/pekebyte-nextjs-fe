@@ -1,8 +1,10 @@
 import { Suspense } from "react";
 import PortfolioClient from "./portfolio-client";
 import type { Metadata } from "next";
+import { getPortfolioItems, getPortfolioCategories } from "@/lib/wordpress";
+import { getPortfolioMedia } from "@/lib/portfoliomedia";
 
-export const revalidate = 3600; // Revalidate every hour
+export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
 
@@ -33,10 +35,22 @@ export async function generateMetadata(): Promise<Metadata> {
   return metadata;
 }
 
-export default function PortfolioPage() {
+export default async function PortfolioPage() {
+  const [categories, items] = await Promise.all([
+    getPortfolioCategories(),
+    getPortfolioItems(),
+  ]);
+
+  const media = await Promise.all(
+    items.map(async (item) => {
+      const result = await getPortfolioMedia(item);
+      return { id: item.id, mainImage: result.mainImage, gallery: result.gallery };
+    })
+  );
+
   return (
     <Suspense fallback={<div>Cargando proyectos...</div>}>
-      <PortfolioClient />
+      <PortfolioClient categories={categories} items={items} media={media} />
     </Suspense>
   );
 }

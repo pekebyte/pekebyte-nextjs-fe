@@ -1,14 +1,10 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect, useState } from "react";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { getTutorialCategories, getTutorials } from "@/lib/wordpress";
-import { PortfolioTechnology } from "@/types/wordpress";
 import { Play } from "lucide-react";
 
 type Category = {
@@ -17,35 +13,16 @@ type Category = {
     slug: string;
 };
 
-export default function TutorialClient() {
-    const searchParams = useSearchParams();
-    const selectedCategory = searchParams.get("category") || "Todos";
-
-    const [categories, setCategories] = useState<Category[]>([]);
-    const [items, setItems] = useState<any[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-
-        async function fetchData() {
-            setLoading(true);
-            let [cats, tutorials] = await Promise.all([
-                getTutorialCategories(),
-                getTutorials(selectedCategory !== "Todos" ? selectedCategory : undefined),
-            ]);
-            console.log("categories", cats);
-            setCategories(cats);
-            setItems(tutorials);
-            setLoading(false);
-
-        }
-
-        fetchData();
-    }, [selectedCategory]);
-
-    if (loading) {
-        return <div>Cargando tutoriales...</div>;
-    }
+export default function TutorialClient({
+    categories,
+    tutorials,
+    categorySlug,
+}: {
+    categories: Category[];
+    tutorials: any[];
+    categorySlug?: string;
+}) {
+    const selectedCategory = categorySlug || "Todos";
 
     return (
         <div className="min-h-screen py-20">
@@ -59,7 +36,7 @@ export default function TutorialClient() {
                     <Button
                         variant={selectedCategory === "Todos" ? "default" : "outline"}
                     >
-                        <Link href={`/tutoriales?category=Todos`}>
+                        <Link href="/tutoriales">
                             Todos
                         </Link>
                     </Button>
@@ -67,9 +44,9 @@ export default function TutorialClient() {
                         <Button
                             key={category.id}
                             asChild
-                            variant={selectedCategory === `${category.id}` ? "default" : "outline"}
+                            variant={selectedCategory === category.slug ? "default" : "outline"}
                         >
-                            <Link href={`/tutoriales?category=${category.id}`}>
+                            <Link href={`/tutoriales/categoria/${category.slug}`}>
                                 {category.name}
                             </Link>
                         </Button>
@@ -77,8 +54,7 @@ export default function TutorialClient() {
                 </div>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {items.map((item, index) => {
-                        console.log("item", item);
+                    {tutorials.map((item, index) => {
                         return (
                             <Link
                                 key={item.id}

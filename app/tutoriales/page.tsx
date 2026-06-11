@@ -1,8 +1,9 @@
 import { Suspense } from "react";
 import TutorialClient from "./tutorial-client";
 import type { Metadata } from "next";
+import { getTutorialCategories, getTutorials } from "@/lib/wordpress";
 
-export const revalidate = 3600; // Revalidate every hour
+export const revalidate = 3600;
 
 export async function generateMetadata(): Promise<Metadata> {
 
@@ -33,10 +34,15 @@ export async function generateMetadata(): Promise<Metadata> {
   return metadata;
 }
 
-export default function TutorialesPage() {
+export default async function TutorialesPage() {
+  const [categories, tutorials] = await Promise.all([
+    getTutorialCategories(),
+    getTutorials(),
+  ]);
+
   return (
     <Suspense fallback={<div>Cargando tutoriales...</div>}>
-      <TutorialClient />
+      <TutorialClient categories={categories} tutorials={tutorials} />
     </Suspense>
   );
 }
