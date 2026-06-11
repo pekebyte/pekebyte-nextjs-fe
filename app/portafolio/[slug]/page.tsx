@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getPortfolioItemCategories, getPortfolioItem, getPortfolioItems, getMediaUrl } from "@/lib/wordpress";
+import { getPortfolioMedia } from "@/lib/portfoliomedia";
 import PortfolioDetail from "./PortfolioDetail";
 import type { Metadata } from "next";
 
@@ -66,5 +67,7 @@ export default async function Page(props: { params: Promise<{ slug: string }> })
     notFound();
   }
 
-  return <PortfolioDetail project={project} categories={projectCategories} />;
+  const { mainImage, gallery } = await getPortfolioMedia(project);
+
+  return <PortfolioDetail project={project} categories={projectCategories} mainImage={mainImage} gallery={gallery} />;
 }

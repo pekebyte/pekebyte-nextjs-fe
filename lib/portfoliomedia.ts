@@ -1,26 +1,31 @@
 import { PortfolioItem } from "@/types/wordpress";
-// Helper function to get media from embedded data
-export function getPortfolioMedia(item: PortfolioItem) {
+import { getMediaUrl } from "./wordpress";
+
+export async function getPortfolioMedia(item: PortfolioItem) {
   const embedded: any = (item._embedded as any)?.['acf:attachment'];
-  
-  if (!embedded) {
-    return {
-      mainImage: null,
-      gallery: []
-    };
+
+  let mainImage: any = null;
+  let gallery: any[] = [];
+
+  if (embedded) {
+    mainImage = embedded.find(
+      (media: { id: number; source_url: string; alt_text?: string }) =>
+        media.id === item.acf.image
+    );
+
+    gallery = item.acf.gallery
+      ?.map(galleryId =>
+        embedded.find(
+          (media: { id: number; source_url: string; alt_text?: string }) =>
+            media.id === galleryId
+        )
+      )
+      .filter(Boolean) || [];
   }
 
-  // Get main image (first item in acf.image)
-  const mainImage = embedded.find(
-  (media: { id: number; source_url: string; alt_text?: string }) =>
-    media.id === item.acf.image
-);
-  
-  // Get gallery items
-  const gallery = item.acf.gallery
-    ?.map(galleryId => embedded.find((media: { id: number; source_url: string; alt_text?: string }) =>
-    media.id === galleryId))
-    .filter(Boolean); // Remove undefined items
+  if (!mainImage && item.acf.image) {
+    mainImage = await getMediaUrl(item.acf.image);
+  }
 
   return {
     mainImage: mainImage || null,

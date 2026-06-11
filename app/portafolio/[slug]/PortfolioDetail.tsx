@@ -13,7 +13,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { getPortfolioMedia } from "@/lib/portfoliomedia";
 import { PortfolioItem } from "@/types/wordpress";
 
 type Category = {
@@ -22,13 +21,20 @@ type Category = {
   slug: string;
 };
 
-type Props = {
-  project: PortfolioItem;
-  categories: Category[]; // o el tipo adecuado
+type MediaItem = {
+  source_url: string;
+  alt_text?: string;
+  mime_type?: string;
 };
 
-export default function PortfolioDetail({ project , categories } : Props) {
-  const { mainImage, gallery } = getPortfolioMedia(project);
+type Props = {
+  project: PortfolioItem;
+  categories: Category[];
+  mainImage: MediaItem | null;
+  gallery: MediaItem[];
+};
+
+export default function PortfolioDetail({ project, categories, mainImage, gallery } : Props) {
   return (
     <div className="min-h-screen py-20">
       <div className="container mx-auto px-4">
@@ -84,13 +90,13 @@ export default function PortfolioDetail({ project , categories } : Props) {
                   </>
                 )}
               </Carousel>
-            ) : (
+            ) : mainImage ? (
               <img
                 src={mainImage.source_url || "/placeholder.svg"}
                 alt={mainImage.source_url || ""}
                 className="w-full h-auto"
               />
-            )}
+            ) : null}
           </div>
 
           <div className="grid md:grid-cols-3 gap-8 mb-12">

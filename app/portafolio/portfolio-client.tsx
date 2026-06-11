@@ -1,6 +1,5 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -19,24 +18,36 @@ type Category = {
   slug: string;
 };
 
-export default function PortfolioClient() {
-    const searchParams = useSearchParams();
-    const selectedCategory = searchParams.get("category") || "Todos";
+export default function PortfolioClient({ categorySlug }: { categorySlug?: string }) {
+    const selectedCategory = categorySlug || "Todos";
 
     const [categories, setCategories] = useState<Category[]>([]);
     const [items, setItems] = useState<any[]>([]);
+    const [mediaMap, setMediaMap] = useState<Map<number, { mainImage: any; gallery: any[] }>>(new Map());
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
 
         async function fetchData() {
             setLoading(true);
-            let [cats, projects] = await Promise.all([
-                getPortfolioCategories(),
-                getPortfolioItems(selectedCategory !== "Todos" ? selectedCategory : undefined),
-            ]);
+            const cats = await getPortfolioCategories();
             setCategories(cats);
+
+            let categoryId: string | undefined;
+            if (selectedCategory !== "Todos") {
+                const found = cats.find(c => c.slug === selectedCategory);
+                if (found) categoryId = String(found.id);
+            }
+
+            const projects = await getPortfolioItems(categoryId);
             setItems(projects);
+
+            const media = new Map<number, { mainImage: any; gallery: any[] }>();
+            await Promise.all(projects.map(async (item: any) => {
+                const result = await getPortfolioMedia(item);
+                media.set(item.id, result);
+            }));
+            setMediaMap(media);
             setLoading(false);
         }
 
@@ -59,7 +70,7 @@ export default function PortfolioClient() {
                     <Button
                         variant={selectedCategory === "Todos" ? "default" : "outline"}
                     >
-                        <Link href={`/portafolio?category=Todos`}>
+                        <Link href="/portafolio">
                             Todos
                         </Link>
                     </Button>
@@ -67,9 +78,9 @@ export default function PortfolioClient() {
                         <Button
                             key={category.id}
                             asChild
-                            variant={selectedCategory == `${category.id}` ? "default" : "outline"}
+                            variant={selectedCategory === category.slug ? "default" : "outline"}
                         >
-                            <Link href={`/portafolio?category=${category.id}`}>
+                            <Link href={`/portafolio/categoria/${category.slug}`}>
                                 {category.name}
                             </Link>
                         </Button>
@@ -78,7 +89,7 @@ export default function PortfolioClient() {
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {items.map((item, index) => {
-                        const { mainImage } = getPortfolioMedia(item);
+                        const { mainImage } = mediaMap.get(item.id) || { mainImage: null, gallery: [] };
                         return (
                             <Link
                                 key={item.id}
