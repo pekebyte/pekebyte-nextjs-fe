@@ -46,8 +46,9 @@ const Home = () => {
               <Image src="/pekebytelogo.svg" alt="Pekebyte logo" width={400} height={170} className="max-w-96 text-primary animate-float" />
             </div>
             <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Pedro Molina — Shopify & WordPress Developer especializado en apps con IA
+              Pedro Molina
             </h1>
+            <h2 className="text-3xl font-bold mb-4">Shopify & WordPress Developer especializado en apps con IA</h2>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 animate-fade-in-up">
               Ayudo a negocios a construir productos WordPress y Shopify que integran IA de verdad, no un chatbot añadido a última hora. 10+ años construyendo software para clientes internacionales.
             </p>
