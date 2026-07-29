@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Code2, Rocket, Sparkles } from "lucide-react";
+import { HandbagIcon, PanelsTopLeftIcon , Rocket, Sparkles } from "lucide-react";
 import Image from "next/image";
 import type { Metadata } from "next";
 
@@ -46,22 +46,22 @@ const Home = () => {
               <Image src="/pekebytelogo.svg" alt="Pekebyte logo" width={400} height={170} className="max-w-96 text-primary animate-float" />
             </div>
             <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Bienvenido a Pekebyte
+              Pedro Molina — Shopify & WordPress Developer especializado en apps con IA
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 animate-fade-in-up">
-              Desarrollo web, tutoriales y contenido de programación
+              Ayudo a negocios a construir productos WordPress y Shopify que integran IA de verdad, no un chatbot añadido a última hora. 10+ años construyendo software para clientes internacionales.
             </p>
             <div className="flex flex-wrap gap-4 justify-center animate-fade-in-up">
               <Link href="/portafolio">
-                <Button size="lg" className="gap-2 cursor-pointer">
+                <Button size="lg" variant="outline" className="gap-2 cursor-pointer">
                   <Rocket className="h-5 w-5" />
                   Ver Portfolio
                 </Button>
               </Link>
-              <Link href="/tutoriales">
-                <Button size="lg" variant="outline" className="gap-2 cursor-pointer">
+              <Link href="/contact">
+                <Button size="lg" className="gap-2 cursor-pointer">
                   <Sparkles className="h-5 w-5" />
-                  Explorar Tutoriales
+                  Hablemos de tu proyecto
                 </Button>
               </Link>
             </div>
@@ -75,21 +75,21 @@ const Home = () => {
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 bg-[var(--gradient-card)]">
               <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
-                <Code2 className="h-6 w-6 text-primary" />
+                <HandbagIcon className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="text-2xl font-bold mb-3">Portfolio</h3>
+              <h3 className="text-2xl font-bold mb-3">Shopify+IA</h3>
               <p className="text-muted-foreground">
-                Proyectos organizados por categorías con detalles técnicos y demos en vivo
+                Apps publicadas en la Shopify App Store con integraciones de OpenAI, como SizeWizard.
               </p>
             </Card>
 
             <Card className="p-8 hover:shadow-lg transition-all duration-300 hover:-translate-y-2 bg-[var(--gradient-card)]">
               <div className="h-12 w-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
-                <Sparkles className="h-6 w-6 text-accent" />
+                <PanelsTopLeftIcon className="h-6 w-6 text-accent" />
               </div>
-              <h3 className="text-2xl font-bold mb-3">Tutoriales</h3>
+              <h3 className="text-2xl font-bold mb-3">WordPress a medida</h3>
               <p className="text-muted-foreground">
-                Contenido educativo con videos de YouTube y fragmentos de código prácticos
+                Plugins, temas y arquitecturas headless con Next.js para clientes internacionales.
               </p>
             </Card>
 
@@ -97,9 +97,9 @@ const Home = () => {
               <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                 <Rocket className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="text-2xl font-bold mb-3">Desarrollo</h3>
+              <h3 className="text-2xl font-bold mb-3">Disponible ahora</h3>
               <p className="text-muted-foreground">
-                Experiencia en desarrollo web moderno con las últimas tecnologías
+                Abierto a proyectos freelance y colaboraciones con agencias.
               </p>
             </Card>
           </div>

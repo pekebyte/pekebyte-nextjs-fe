@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Code2, Coffee, Zap, Award } from "lucide-react";
 import type { Metadata } from "next";
+import Link from "next/link";
 
 export async function generateMetadata(): Promise<Metadata> {
 
@@ -50,8 +51,8 @@ const About = () => {
                 <div>
                   <h2 className="text-3xl font-bold mb-4">Desarrollador Full Stack</h2>
                   <p className="text-muted-foreground text-lg leading-relaxed">
-                    Apasionado por crear experiencias web elegantes, rápidas y escalables. Cuento con más de 10 años de experiencia desarrollando soluciones a medida para empresas internacionales, desde plugins de WordPress hasta apps con integraciones de Inteligencia Artificial. <br /><br />
-                    Me motiva enfrentar nuevos desafíos, optimizar el rendimiento y transformar ideas en productos digitales funcionales y atractivos.
+                    Soy Pedro Molina, desarrollador full stack con más de 10 años construyendo software a medida para clientes internacionales. Mi trabajo se centra en dos áreas: desarrollo WordPress para clientes (plugins, temas, arquitecturas headless) y desarrollo de productos Shopify con integraciones de IA, incluyendo SizeWizard, mi propia app publicada en la Shopify App Store. <br /><br />
+                    Actualmente disponible para proyectos freelance y colaboraciones con agencias.
                   </p>
                 </div>
               </div>
@@ -94,7 +95,8 @@ const About = () => {
             <Card className="p-8 bg-[var(--gradient-card)]">
               <h3 className="text-2xl font-bold mb-4">Mi filosofía</h3>
               <p className="text-muted-foreground text-lg leading-relaxed">
-                Creo en el poder del código limpio, las buenas prácticas y el aprendizaje continuo. Mi objetivo es desarrollar aplicaciones que destaquen por su rendimiento, mantenibilidad y accesibilidad, brindando soluciones sostenibles y escalables en el tiempo.
+                Creo en el poder del código limpio, las buenas prácticas y el aprendizaje continuo. Mi objetivo es desarrollar aplicaciones que destaquen por su rendimiento, mantenibilidad y accesibilidad, brindando soluciones sostenibles y escalables en el tiempo.<br /><br />
+                Si tienes un proyecto de WordPress o Shopify que necesita IA bien integrada, <Link href="/contact"><u>hablemos</u></Link>.
               </p>
             </Card>
 
@@ -108,6 +110,20 @@ const About = () => {
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
+                <Card className="p-6 hover:shadow-lg transition-all duration-300">
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Award className="h-6 w-6 text-primary" />
+                    </div>
+                    <Badge variant="secondary">2026</Badge>
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">Claude Code 101</h3>
+                  <p className="text-muted-foreground mb-3">Anthropic</p>
+                  <p className="text-sm text-muted-foreground">
+                    Certificación en el uso de agentes de IA como Claude Code en el flujo de trabajo diario.
+                  </p>
+                </Card>
+
                 <Card className="p-6 hover:shadow-lg transition-all duration-300">
                   <div className="flex items-start justify-between mb-4">
                     <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
