@@ -39,8 +39,8 @@ const Navigation = ({ locale }: { locale: Locale }) => {
   const navLinks = [
     { path: "/", label: t.nav.home },
     { path: "/about", label: t.nav.about },
-    { path: "/portafolio", label: t.nav.portfolio },
-    { path: "/tutoriales", label: t.nav.tutorials },
+    { path: "/portfolio", label: t.nav.portfolio },
+    { path: "/tutorials", label: t.nav.tutorials },
     { path: "/contact", label: t.nav.contact },
   ];
 
