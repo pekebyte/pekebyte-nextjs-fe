@@ -42,7 +42,7 @@ export default function TutorialClient({
                         asChild
                         variant={selectedCategory === t.tutorials.all ? "default" : "outline"}
                     >
-                        <Link href={getLocalizedPath("/tutoriales", locale)}>
+                        <Link href={getLocalizedPath("/tutorials", locale)}>
                             {t.tutorials.all}
                         </Link>
                     </Button>
@@ -52,7 +52,7 @@ export default function TutorialClient({
                             asChild
                             variant={selectedCategory === category.slug ? "default" : "outline"}
                         >
-                            <Link href={getLocalizedPath(`/tutoriales/categoria/${category.slug}`, locale)}>
+                            <Link href={getLocalizedPath(`/tutorials/category/${category.slug}`, locale)}>
                                 {category.name}
                             </Link>
                         </Button>

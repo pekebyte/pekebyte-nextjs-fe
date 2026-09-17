@@ -52,7 +52,7 @@ export default function PortfolioClient({
                         asChild
                         variant={selectedCategory === t.portfolio.all ? "default" : "outline"}
                     >
-                        <Link href={getLocalizedPath("/portafolio", locale)}>
+                        <Link href={getLocalizedPath("/portfolio", locale)}>
                             {t.portfolio.all}
                         </Link>
                     </Button>
@@ -62,7 +62,7 @@ export default function PortfolioClient({
                             asChild
                             variant={selectedCategory === category.slug ? "default" : "outline"}
                         >
-                            <Link href={getLocalizedPath(`/portafolio/categoria/${category.slug}`, locale)}>
+                            <Link href={getLocalizedPath(`/portfolio/category/${category.slug}`, locale)}>
                                 {category.name}
                             </Link>
                         </Button>

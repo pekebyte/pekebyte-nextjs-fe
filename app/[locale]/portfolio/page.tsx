@@ -29,7 +29,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title,
     description,
     keywords,
-    alternates: buildAlternates("/portafolio", locale as Locale),
+    alternates: buildAlternates("/portfolio", locale as Locale),
     openGraph: {
       title,
       description,

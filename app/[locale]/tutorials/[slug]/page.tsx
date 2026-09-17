@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
     description,
     keywords,
     alternates: {
-      canonical: SITE_URL + getLocalizedPath(`/tutoriales/${resolvedParams.slug}`, locale),
+      canonical: SITE_URL + getLocalizedPath(`/tutorials/${resolvedParams.slug}`, locale),
     },
   };
 
