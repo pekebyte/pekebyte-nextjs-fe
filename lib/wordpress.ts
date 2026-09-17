@@ -31,12 +31,12 @@ async function fetchAPI(endpoint: string, options = {}) {
 // Portfolio Functions
 export async function getPortfolioItems(locale: Locale, category?: string): Promise<PortfolioItem[]> {
   const categoryQuery = category && category !== 'Todos' ? `&portfolio-category=${category}` : '';
-  const data = await fetchAPI(`/portafolio?_embed${categoryQuery}&per_page=100${langParam(locale)}`);
+  const data = await fetchAPI(`/portfolio?_embed${categoryQuery}&per_page=100${langParam(locale)}`);
   return data;
 }
 
 export async function getPortfolioItem(locale: Locale, slug: string): Promise<PortfolioItem> {
-  const data = await fetchAPI(`/portafolio?slug=${slug}&_embed${langParam(locale)}`);
+  const data = await fetchAPI(`/portfolio?slug=${slug}&_embed${langParam(locale)}`);
   return data[0];
 }
 
