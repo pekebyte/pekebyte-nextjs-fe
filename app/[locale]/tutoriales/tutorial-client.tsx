@@ -2,10 +2,12 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Play } from "lucide-react";
+import { Locale, getLocalizedPath } from "@/lib/i18n";
+import { getTranslations } from "@/lib/translations";
 
 type Category = {
     id: number;
@@ -17,27 +19,31 @@ export default function TutorialClient({
     categories,
     tutorials,
     categorySlug,
+    locale,
 }: {
     categories: Category[];
     tutorials: any[];
     categorySlug?: string;
+    locale: Locale;
 }) {
-    const selectedCategory = categorySlug || "Todos";
+    const t = getTranslations(locale);
+    const selectedCategory = categorySlug || t.tutorials.all;
 
     return (
         <div className="min-h-screen py-20">
             <div className="container mx-auto px-4">
-                <h1 className="text-5xl md:text-6xl font-bold mb-4 animate-fade-in">Tutoriales</h1>
+                <h1 className="text-5xl md:text-6xl font-bold mb-4 animate-fade-in">{t.tutorials.title}</h1>
                 <p className="text-xl text-muted-foreground mb-12 animate-fade-in-up">
-                    Aprende desarrollo web con videos y ejemplos de código
+                    {t.tutorials.subtitle}
                 </p>
 
                 <div className="flex flex-wrap gap-2 mb-8">
                     <Button
-                        variant={selectedCategory === "Todos" ? "default" : "outline"}
+                        asChild
+                        variant={selectedCategory === t.tutorials.all ? "default" : "outline"}
                     >
-                        <Link href="/tutoriales">
-                            Todos
+                        <Link href={getLocalizedPath("/tutoriales", locale)}>
+                            {t.tutorials.all}
                         </Link>
                     </Button>
                     {categories.map((category) => (
@@ -46,7 +52,7 @@ export default function TutorialClient({
                             asChild
                             variant={selectedCategory === category.slug ? "default" : "outline"}
                         >
-                            <Link href={`/tutoriales/categoria/${category.slug}`}>
+                            <Link href={getLocalizedPath(`/tutoriales/categoria/${category.slug}`, locale)}>
                                 {category.name}
                             </Link>
                         </Button>
@@ -58,7 +64,7 @@ export default function TutorialClient({
                         return (
                             <Link
                                 key={item.id}
-                                href={`/tutoriales/${item.slug}`}
+                                href={getLocalizedPath(`/tutoriales/${item.slug}`, locale)}
                                 className="group animate-fade-in"
                                 style={{ animationDelay: `${index * 0.1}s` }}
                             >

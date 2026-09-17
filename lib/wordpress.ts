@@ -1,4 +1,5 @@
 import { PortfolioItem, Tutorial, Page, ACFImageTwo } from '@/types/wordpress';
+import { Locale } from '@/lib/i18n';
 
 const WP_API_URL = process.env.NEXT_PUBLIC_WORDPRESS_API_URL || 'http://localhost/wp-json/wp/v2';
 
@@ -7,6 +8,10 @@ type Category = {
   name: string;
   slug: string;
 };
+
+function langParam(locale: Locale): string {
+  return `&lang=${locale}`;
+}
 
 async function fetchAPI(endpoint: string, options = {}) {
   const headers = { 'Content-Type': 'application/json' };
@@ -24,52 +29,53 @@ async function fetchAPI(endpoint: string, options = {}) {
 }
 
 // Portfolio Functions
-export async function getPortfolioItems(category?: string): Promise<PortfolioItem[]> {
+export async function getPortfolioItems(locale: Locale, category?: string): Promise<PortfolioItem[]> {
   const categoryQuery = category && category !== 'Todos' ? `&portfolio-category=${category}` : '';
-  const data = await fetchAPI(`/portafolio?_embed${categoryQuery}&per_page=100`);
+  const data = await fetchAPI(`/portafolio?_embed${categoryQuery}&per_page=100${langParam(locale)}`);
   return data;
 }
 
-export async function getPortfolioItem(slug: string): Promise<PortfolioItem> {
-  const data = await fetchAPI(`/portafolio?slug=${slug}&_embed`);
+export async function getPortfolioItem(locale: Locale, slug: string): Promise<PortfolioItem> {
+  const data = await fetchAPI(`/portafolio?slug=${slug}&_embed${langParam(locale)}`);
   return data[0];
 }
 
-export async function getPortfolioCategories(): Promise<Category[]> {
-  const data = await fetchAPI('/portfolio-category?_embed&post_type=portafolio?per_page=100');
+export async function getPortfolioCategories(locale: Locale): Promise<Category[]> {
+  const data = await fetchAPI(`/portfolio-category?_embed&per_page=100${langParam(locale)}`);
   return data;
 }
 
-export async function getPortfolioItemCategories(categoryIds: number[]): Promise<Category[]> {
-  const data = await fetchAPI(`/portfolio-category?_embed&post_type=portafolio&include=${categoryIds.join(',')}`);
+export async function getPortfolioItemCategories(locale: Locale, categoryIds: number[]): Promise<Category[]> {
+  const data = await fetchAPI(`/portfolio-category?_embed&include=${categoryIds.join(',')}${langParam(locale)}`);
   return data;
 }
+
 // Tutorial Functions
-export async function getTutorials(category?: string): Promise<Tutorial[]> {
+export async function getTutorials(locale: Locale, category?: string): Promise<Tutorial[]> {
   const categoryQuery = category && category !== 'Todos' ? `&tutorial-category=${category}` : '';
-  let data = await fetchAPI(`/tutorial?_embed${categoryQuery}&per_page=100`);
+  let data = await fetchAPI(`/tutorial?_embed${categoryQuery}&per_page=100${langParam(locale)}`);
   data = await Promise.all(
-  data.map(async (tutorial: Tutorial) => {
-    tutorial.acf.thumbnail_url = await getMediaUrl(tutorial.acf.thumbnail);
-    return tutorial;
-  })
-);
+    data.map(async (tutorial: Tutorial) => {
+      tutorial.acf.thumbnail_url = await getMediaUrl(tutorial.acf.thumbnail);
+      return tutorial;
+    })
+  );
   return data;
 }
 
-export async function getTutorial(slug: string): Promise<Tutorial> {
-  const data = await fetchAPI(`/tutorial?slug=${slug}&_embed`);
+export async function getTutorial(locale: Locale, slug: string): Promise<Tutorial> {
+  const data = await fetchAPI(`/tutorial?slug=${slug}&_embed${langParam(locale)}`);
   return data[0];
 }
 
-export async function getTutorialCategories(): Promise<Category[]> {
-  const data = await fetchAPI('/tutorial-category?_embed&post_type=tutorial?per_page=100');
+export async function getTutorialCategories(locale: Locale): Promise<Category[]> {
+  const data = await fetchAPI(`/tutorial-category?_embed&per_page=100${langParam(locale)}`);
   return data;
 }
 
 // Page Functions
-export async function getPage(slug: string): Promise<Page> {
-  const data = await fetchAPI(`/pages?slug=${slug}`);
+export async function getPage(locale: Locale, slug: string): Promise<Page> {
+  const data = await fetchAPI(`/pages?slug=${slug}${langParam(locale)}`);
   return data[0];
 }
 

@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { ArrowLeft, ExternalLink, Github } from "lucide-react";
 import {
   Carousel,
@@ -14,6 +14,8 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { PortfolioItem } from "@/types/wordpress";
+import { Locale, getLocalizedPath } from "@/lib/i18n";
+import { getTranslations } from "@/lib/translations";
 
 type Category = {
   id: number;
@@ -32,16 +34,19 @@ type Props = {
   categories: Category[];
   mainImage: MediaItem | null;
   gallery: MediaItem[];
+  locale: Locale;
 };
 
-export default function PortfolioDetail({ project, categories, mainImage, gallery } : Props) {
+export default function PortfolioDetail({ project, categories, mainImage, gallery, locale }: Props) {
+  const t = getTranslations(locale);
+
   return (
     <div className="min-h-screen py-20">
       <div className="container mx-auto px-4">
-        <Link href="/portafolio">
+        <Link href={getLocalizedPath("/portafolio", locale)}>
           <Button variant="ghost" className="mb-8 gap-2 cursor-pointer">
             <ArrowLeft className="h-4 w-4" />
-            Volver al Portfolio
+            {t.portfolio.backToPortfolio}
           </Button>
         </Link>
 
@@ -102,14 +107,14 @@ export default function PortfolioDetail({ project, categories, mainImage, galler
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             <div className="md:col-span-2 space-y-8">
               <Card className="p-8">
-                <h2 className="text-3xl font-bold mb-4">Descripción</h2>
+                <h2 className="text-3xl font-bold mb-4">{t.portfolio.description}</h2>
                 <p className="text-muted-foreground text-lg leading-relaxed">
                   {project.acf.description || ""}
                 </p>
               </Card>
 
               <Card className="p-8">
-                <h2 className="text-3xl font-bold mb-6">Características</h2>
+                <h2 className="text-3xl font-bold mb-6">{t.portfolio.features}</h2>
                 <ul className="space-y-3">
                   {project.acf.features?.map((feature, index) => (
                     <li key={`feature-${index}`} className="flex items-start gap-3">
@@ -127,7 +132,7 @@ export default function PortfolioDetail({ project, categories, mainImage, galler
 
             <div className="space-y-6">
               <Card className="p-6">
-                <h3 className="text-xl font-bold mb-4">Tecnologías</h3>
+                <h3 className="text-xl font-bold mb-4">{t.portfolio.technologies}</h3>
                 <div className="flex flex-wrap gap-2">
                   {project.acf.technologies?.map((tech, index) => (
                     <Badge key={`tech-${index}`} variant="outline">
@@ -140,7 +145,7 @@ export default function PortfolioDetail({ project, categories, mainImage, galler
               </Card>
 
               <Card className="p-6">
-                <h3 className="text-xl font-bold mb-4">Enlaces</h3>
+                <h3 className="text-xl font-bold mb-4">{t.portfolio.links}</h3>
                 <div className="space-y-3">
                   {project.acf.demo_link && (
                     <Button className="w-full gap-2" variant="default">
@@ -150,7 +155,7 @@ export default function PortfolioDetail({ project, categories, mainImage, galler
                         className="w-full flex justify-center gap-2"
                       >
                         <ExternalLink className="h-4 w-4" />
-                        Ver Demo
+                        {t.portfolio.viewDemo}
                       </Link>
                     </Button>
                   )}
@@ -164,7 +169,7 @@ export default function PortfolioDetail({ project, categories, mainImage, galler
                         className="w-full flex justify-center gap-2"
                       >
                         <Github className="h-4 w-4" />
-                        Ver Código
+                        {t.portfolio.viewCode}
                       </Link>
                     </Button>
 

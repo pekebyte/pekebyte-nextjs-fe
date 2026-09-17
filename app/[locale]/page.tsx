@@ -1,40 +1,47 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { HandbagIcon, PanelsTopLeftIcon , Rocket, Sparkles } from "lucide-react";
+import { HandbagIcon, PanelsTopLeftIcon, Rocket, Sparkles } from "lucide-react";
 import Image from "next/image";
 import type { Metadata } from "next";
+import { Locale, getLocalizedPath, buildAlternates } from "@/lib/i18n";
+import { getTranslations } from "@/lib/translations";
 
-export async function generateMetadata(): Promise<Metadata> {
+type Props = {
+  params: Promise<{ locale: string }>;
+};
 
-  const title = "Pekebyte - Inicio";
-  const description = "Bienvenido a Pekebyte, tu destino para desarrollo web, tutoriales de programación y contenido tecnológico de vanguardia.";
-  const keywords = "Desarrollo Web, Tutoriales, Programación, Tecnología, Pekebyte";
-  const ogImageUrl = "/metadata/home.jpg"
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const isEs = locale === 'es';
 
-  const metadata: Metadata = {
+  const title = isEs ? "Pekebyte - Inicio" : "Pekebyte - Home";
+  const description = isEs
+    ? "Bienvenido a Pekebyte, tu destino para desarrollo web, tutoriales de programación y contenido tecnológico de vanguardia."
+    : "Welcome to Pekebyte, your destination for web development, programming tutorials, and cutting-edge tech content.";
+  const keywords = isEs
+    ? "Desarrollo Web, Tutoriales, Programación, Tecnología, Pekebyte"
+    : "Web Development, Tutorials, Programming, Technology, Pekebyte";
+  const ogImageUrl = "/metadata/home.jpg";
+
+  return {
     title,
     description,
     keywords,
-  };
-
-  metadata.openGraph = {
+    alternates: buildAlternates("/", locale as Locale),
+    openGraph: {
       title,
       description,
-      images: [
-        {
-          url: ogImageUrl,
-          width: 1200,
-          height: 630,
-          alt: "Portfolio page",
-        },
-      ],
-    };
-
-  return metadata;
+      images: [{ url: ogImageUrl, width: 1200, height: 630, alt: "Home page" }],
+    },
+  };
 }
 
-const Home = () => {
+const Home = async ({ params }: Props) => {
+  const { locale: rawLocale } = await params;
+  const locale = (rawLocale === 'es' ? 'es' : 'en') as Locale;
+  const t = getTranslations(locale);
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -46,23 +53,23 @@ const Home = () => {
               <Image src="/pekebytelogo.svg" alt="Pekebyte logo" width={400} height={170} className="max-w-96 text-primary animate-float" />
             </div>
             <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Pedro Molina
+              {t.home.title}
             </h1>
-            <h2 className="text-3xl font-bold mb-4">Shopify & WordPress Developer especializado en apps con IA</h2>
+            <h2 className="text-3xl font-bold mb-4">{t.home.subtitle}</h2>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 animate-fade-in-up">
-              Ayudo a negocios a construir productos WordPress y Shopify que integran IA de verdad, no un chatbot añadido a última hora. 10+ años construyendo software para clientes internacionales.
+              {t.home.description}
             </p>
             <div className="flex flex-wrap gap-4 justify-center animate-fade-in-up">
-              <Link href="/portafolio">
+              <Link href={getLocalizedPath("/portafolio", locale)}>
                 <Button size="lg" variant="outline" className="gap-2 cursor-pointer">
                   <Rocket className="h-5 w-5" />
-                  Ver Portfolio
+                  {t.home.viewPortfolio}
                 </Button>
               </Link>
-              <Link href="/contact">
+              <Link href={getLocalizedPath("/contact", locale)}>
                 <Button size="lg" className="gap-2 cursor-pointer">
                   <Sparkles className="h-5 w-5" />
-                  Hablemos de tu proyecto
+                  {t.home.letsTalk}
                 </Button>
               </Link>
             </div>
@@ -78,9 +85,9 @@ const Home = () => {
               <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                 <HandbagIcon className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="text-2xl font-bold mb-3">Shopify+IA</h3>
+              <h3 className="text-2xl font-bold mb-3">{t.home.shopifyIa}</h3>
               <p className="text-muted-foreground">
-                Apps publicadas en la Shopify App Store con integraciones de OpenAI, como SizeWizard.
+                {t.home.shopifyDesc}
               </p>
             </Card>
 
@@ -88,9 +95,9 @@ const Home = () => {
               <div className="h-12 w-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
                 <PanelsTopLeftIcon className="h-6 w-6 text-accent" />
               </div>
-              <h3 className="text-2xl font-bold mb-3">WordPress a medida</h3>
+              <h3 className="text-2xl font-bold mb-3">{t.home.wordpressCustom}</h3>
               <p className="text-muted-foreground">
-                Plugins, temas y arquitecturas headless con Next.js para clientes internacionales.
+                {t.home.wordpressDesc}
               </p>
             </Card>
 
@@ -98,9 +105,9 @@ const Home = () => {
               <div className="h-12 w-12 bg-primary/10 rounded-lg flex items-center justify-center mb-4">
                 <Rocket className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="text-2xl font-bold mb-3">Disponible ahora</h3>
+              <h3 className="text-2xl font-bold mb-3">{t.home.availableNow}</h3>
               <p className="text-muted-foreground">
-                Abierto a proyectos freelance y colaboraciones con agencias.
+                {t.home.availableDesc}
               </p>
             </Card>
           </div>

@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ExternalLink } from "lucide-react";
 import { PortfolioTechnology } from "@/types/wordpress";
+import { Locale, getLocalizedPath } from "@/lib/i18n";
+import { getTranslations } from "@/lib/translations";
 
 type Category = {
   id: number;
@@ -25,29 +27,33 @@ export default function PortfolioClient({
   items,
   media,
   categorySlug,
+  locale,
 }: {
   categories: Category[];
   items: any[];
   media: MediaEntry[];
   categorySlug?: string;
+  locale: Locale;
 }) {
-    const selectedCategory = categorySlug || "Todos";
+    const t = getTranslations(locale);
+    const selectedCategory = categorySlug || t.portfolio.all;
     const mediaMap = new Map(media.map(m => [m.id, m]));
 
     return (
         <div className="min-h-screen py-20">
             <div className="container mx-auto px-4">
-                <h1 className="text-5xl md:text-6xl font-bold mb-4 animate-fade-in">Portafolio</h1>
+                <h1 className="text-5xl md:text-6xl font-bold mb-4 animate-fade-in">{t.portfolio.title}</h1>
                 <p className="text-xl text-muted-foreground mb-12 animate-fade-in-up">
-                    Explora mis proyectos y casos de estudio
+                    {t.portfolio.subtitle}
                 </p>
 
                 <div className="flex flex-wrap gap-2 mb-8">
                     <Button
-                        variant={selectedCategory === "Todos" ? "default" : "outline"}
+                        asChild
+                        variant={selectedCategory === t.portfolio.all ? "default" : "outline"}
                     >
-                        <Link href="/portafolio">
-                            Todos
+                        <Link href={getLocalizedPath("/portafolio", locale)}>
+                            {t.portfolio.all}
                         </Link>
                     </Button>
                     {categories.map((category) => (
@@ -56,7 +62,7 @@ export default function PortfolioClient({
                             asChild
                             variant={selectedCategory === category.slug ? "default" : "outline"}
                         >
-                            <Link href={`/portafolio/categoria/${category.slug}`}>
+                            <Link href={getLocalizedPath(`/portafolio/categoria/${category.slug}`, locale)}>
                                 {category.name}
                             </Link>
                         </Button>
@@ -69,7 +75,7 @@ export default function PortfolioClient({
                         return (
                             <Link
                                 key={item.id}
-                                href={`/portafolio/${item.slug}`}
+                                href={getLocalizedPath(`/portafolio/${item.slug}`, locale)}
                                 className="group animate-fade-in"
                                 style={{ animationDelay: `${index * 0.1}s` }}
                             >

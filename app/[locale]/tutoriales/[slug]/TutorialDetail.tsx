@@ -1,17 +1,22 @@
 "use client";
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Clock, TrendingUp } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useEffect } from "react";
 import { Tutorial } from "@/types/wordpress";
+import { Locale, getLocalizedPath } from "@/lib/i18n";
+import { getTranslations } from "@/lib/translations";
 import Prism from "prismjs";
+
 type Props = {
   tutorial: Tutorial;
+  locale: Locale;
 };
 
-export default function TutorialDetail({ tutorial } : Props) {
+export default function TutorialDetail({ tutorial, locale }: Props) {
+  const t = getTranslations(locale);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -22,10 +27,10 @@ export default function TutorialDetail({ tutorial } : Props) {
   return (
     <div className="min-h-screen py-20">
       <div className="container mx-auto px-4">
-        <Link href="/tutoriales">
+        <Link href={getLocalizedPath("/tutoriales", locale)}>
           <Button variant="ghost" className="mb-8 gap-2 cursor-pointer">
             <ArrowLeft className="h-4 w-4" />
-            Volver a Tutoriales
+            {t.tutorials.backToTutorials}
           </Button>
         </Link>
 
@@ -62,7 +67,7 @@ export default function TutorialDetail({ tutorial } : Props) {
 
             <div>
               <Card className="p-6 sticky top-24">
-                <h3 className="text-xl font-bold mb-4">Temas cubiertos</h3>
+                <h3 className="text-xl font-bold mb-4">{t.tutorials.topicsCovered}</h3>
                 <ul className="space-y-3">
                   {tutorial.acf.topics?.map((topic, index) => (
                     <li key={`topic-${index}`} className="flex items-start gap-3">

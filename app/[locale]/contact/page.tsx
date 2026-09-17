@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { use, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -8,10 +8,15 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Github, Linkedin, MapPin, Youtube } from "lucide-react";
 import { toast } from "@/src/hooks/use-toast";
-import { submitContactForm } from "@/lib/wordpress";
 import Link from "next/link";
+import { Locale } from "@/lib/i18n";
+import { getTranslations } from "@/lib/translations";
 
-export default function Contact() {
+export default function Contact({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale: rawLocale } = use(params);
+  const locale = (rawLocale === 'es' ? 'es' : 'en') as Locale;
+  const t = getTranslations(locale);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -25,7 +30,6 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
-      // Llamar a tu API endpoint
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
@@ -35,18 +39,18 @@ export default function Contact() {
       });
 
       if (!response.ok) {
-        throw new Error('Error al enviar el mensaje');
+        throw new Error('Error sending message');
       }
 
       toast({
-        title: "Mensaje enviado",
-        description: "Te responderé lo antes posible.",
+        title: t.contact.successTitle,
+        description: t.contact.successDesc,
       });
       setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (error) {
       toast({
-        title: "Error",
-        description: "No se pudo enviar el mensaje. Intenta de nuevo.",
+        title: t.contact.errorTitle,
+        description: t.contact.errorDesc,
         variant: "destructive",
       });
     } finally {
@@ -66,24 +70,24 @@ export default function Contact() {
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
           <h1 className="text-5xl md:text-6xl font-bold mb-4 animate-fade-in">
-            Contacto
+            {t.contact.title}
           </h1>
           <p className="text-xl text-muted-foreground mb-12 animate-fade-in-up">
-            ¿Tienes un proyecto en mente? ¡Hablemos!
+            {t.contact.subtitle}
           </p>
 
           <div className="grid md:grid-cols-2 gap-8">
             <Card>
               <CardHeader>
-                <CardTitle>Envíame un mensaje</CardTitle>
+                <CardTitle>{t.contact.sendMessage}</CardTitle>
                 <CardDescription>
-                  Completa el formulario y te responderé lo antes posible
+                  {t.contact.formDescription}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
-                    <Label htmlFor="name">Nombre</Label>
+                    <Label htmlFor="name">{t.contact.name}</Label>
                     <Input
                       id="name"
                       name="name"
@@ -93,7 +97,7 @@ export default function Contact() {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email">{t.contact.email}</Label>
                     <Input
                       id="email"
                       name="email"
@@ -104,7 +108,7 @@ export default function Contact() {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="subject">Asunto</Label>
+                    <Label htmlFor="subject">{t.contact.subject}</Label>
                     <Input
                       id="subject"
                       name="subject"
@@ -114,7 +118,7 @@ export default function Contact() {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="message">Mensaje</Label>
+                    <Label htmlFor="message">{t.contact.message}</Label>
                     <Textarea
                       id="message"
                       name="message"
@@ -125,7 +129,7 @@ export default function Contact() {
                     />
                   </div>
                   <Button type="submit" className="w-full" disabled={isSubmitting}>
-                    {isSubmitting ? "Enviando..." : "Enviar Mensaje"}
+                    {isSubmitting ? t.contact.sending : t.contact.sendButton}
                   </Button>
                 </form>
               </CardContent>
@@ -170,11 +174,11 @@ export default function Contact() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Disponibilidad</CardTitle>
+                  <CardTitle>{t.contact.availability}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground">
-                    Actualmente disponible para proyectos freelance y colaboraciones.
+                    {t.contact.availabilityDesc}
                   </p>
                 </CardContent>
               </Card>
