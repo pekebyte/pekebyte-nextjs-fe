@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, FolderOpen } from "lucide-react";
 import { PortfolioTechnology } from "@/types/wordpress";
 import { Locale, getLocalizedPath } from "@/lib/i18n";
 import { getTranslations } from "@/lib/translations";
@@ -69,13 +69,22 @@ export default function PortfolioClient({
                     ))}
                 </div>
 
+                {items.length === 0 ? (
+                    <div className="flex flex-col items-center justify-center text-center py-24 animate-fade-in">
+                        <div className="h-16 w-16 rounded-full bg-muted flex items-center justify-center mb-6">
+                            <FolderOpen className="h-8 w-8 text-muted-foreground" />
+                        </div>
+                        <h3 className="text-2xl font-bold mb-2">{t.portfolio.emptyTitle}</h3>
+                        <p className="text-muted-foreground max-w-md">{t.portfolio.emptyDescription}</p>
+                    </div>
+                ) : (
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {items.map((item, index) => {
                         const { mainImage } = mediaMap.get(item.id) || { mainImage: null, gallery: [] };
                         return (
                             <Link
                                 key={item.id}
-                                href={getLocalizedPath(`/portafolio/${item.slug}`, locale)}
+                                href={getLocalizedPath(`/portfolio/${item.slug}`, locale)}
                                 className="group animate-fade-in"
                                 style={{ animationDelay: `${index * 0.1}s` }}
                             >
@@ -110,6 +119,7 @@ export default function PortfolioClient({
                         );
                     })}
                 </div>
+                )}
             </div>
         </div >
     );

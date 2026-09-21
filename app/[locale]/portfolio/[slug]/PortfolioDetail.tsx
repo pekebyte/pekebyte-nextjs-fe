@@ -43,7 +43,7 @@ export default function PortfolioDetail({ project, categories, mainImage, galler
   return (
     <div className="min-h-screen py-20">
       <div className="container mx-auto px-4">
-        <Link href={getLocalizedPath("/portafolio", locale)}>
+        <Link href={getLocalizedPath("/portfolio", locale)}>
           <Button variant="ghost" className="mb-8 gap-2 cursor-pointer">
             <ArrowLeft className="h-4 w-4" />
             {t.portfolio.backToPortfolio}

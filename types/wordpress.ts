@@ -22,6 +22,7 @@ export interface PortfolioTechnology {
 export interface PortfolioItem {
   id: number;
   slug: string;
+  link: string;
   categories: number[];
   title: {
     rendered: string;
@@ -57,6 +58,7 @@ export interface Topic {
 export interface Tutorial {
   id: number;
   slug: string;
+  link: string;
   title: {
     rendered: string;
   };

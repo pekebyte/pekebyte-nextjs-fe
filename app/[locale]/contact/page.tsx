@@ -35,7 +35,7 @@ export default function Contact({ params }: { params: Promise<{ locale: string }
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, locale }),
       });
 
       if (!response.ok) {

@@ -60,7 +60,7 @@ const Home = async ({ params }: Props) => {
               {t.home.description}
             </p>
             <div className="flex flex-wrap gap-4 justify-center animate-fade-in-up">
-              <Link href={getLocalizedPath("/portafolio", locale)}>
+              <Link href={getLocalizedPath("/portfolio", locale)}>
                 <Button size="lg" variant="outline" className="gap-2 cursor-pointer">
                   <Rocket className="h-5 w-5" />
                   {t.home.viewPortfolio}

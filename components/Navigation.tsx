@@ -2,17 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Moon, Sun, Menu, X, Languages } from "lucide-react";
+import { Moon, Sun, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Locale, getLocalizedPath, getPathWithoutLocale, locales, localeNames } from "@/lib/i18n";
+import LanguageSwitch from "@/components/LanguageSwitch";
+import { Locale, getLocalizedPath, getPathWithoutLocale } from "@/lib/i18n";
 import { getTranslations } from "@/lib/translations";
 
 const Navigation = ({ locale }: { locale: Locale }) => {
@@ -40,14 +35,12 @@ const Navigation = ({ locale }: { locale: Locale }) => {
     { path: "/", label: t.nav.home },
     { path: "/about", label: t.nav.about },
     { path: "/portfolio", label: t.nav.portfolio },
-    { path: "/tutorials", label: t.nav.tutorials },
+    ...(locale === 'en' ? [] : [{ path: "/tutorials", label: t.nav.tutorials }]),
     { path: "/contact", label: t.nav.contact },
   ];
 
   const pathWithoutLocale = getPathWithoutLocale(pathname);
   const isActive = (path: string) => pathWithoutLocale === path;
-
-  const switchPath = getPathWithoutLocale(pathname);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
@@ -73,30 +66,7 @@ const Navigation = ({ locale }: { locale: Locale }) => {
               </Link>
             ))}
 
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="rounded-full cursor-pointer"
-                  aria-label={localeNames[locale]}
-                >
-                  <Languages className="h-5 w-5" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                {locales.map((loc) => (
-                  <DropdownMenuItem key={loc} asChild>
-                    <Link
-                      href={getLocalizedPath(switchPath, loc)}
-                      className={loc === locale ? "font-semibold text-primary cursor-pointer" : "cursor-pointer"}
-                    >
-                      {localeNames[loc]}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <LanguageSwitch locale={locale} />
 
             <Button
               variant="ghost"
@@ -114,30 +84,7 @@ const Navigation = ({ locale }: { locale: Locale }) => {
 
           {/* Mobile Menu Button */}
           <div className="flex md:hidden items-center gap-2">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="rounded-full"
-                  aria-label={localeNames[locale]}
-                >
-                  <Languages className="h-5 w-5" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                {locales.map((loc) => (
-                  <DropdownMenuItem key={loc} asChild>
-                    <Link
-                      href={getLocalizedPath(switchPath, loc)}
-                      className={loc === locale ? "font-semibold text-primary cursor-pointer" : "cursor-pointer"}
-                    >
-                      {localeNames[loc]}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <LanguageSwitch locale={locale} />
             <Button
               variant="ghost"
               size="icon"

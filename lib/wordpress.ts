@@ -13,6 +13,20 @@ function langParam(locale: Locale): string {
   return `&lang=${locale}`;
 }
 
+function localeFromLink(link: string | undefined): Locale {
+  if (!link) return 'en';
+  try {
+    const first = new URL(link).pathname.split('/')[1];
+    return first === 'es' ? 'es' : 'en';
+  } catch {
+    return 'en';
+  }
+}
+
+function filterByLocale<T extends { link?: string }>(items: T[], locale: Locale): T[] {
+  return items.filter((item) => localeFromLink(item.link) === locale);
+}
+
 async function fetchAPI(endpoint: string, options = {}) {
   const headers = { 'Content-Type': 'application/json' };
   const res = await fetch(`${WP_API_URL}${endpoint}`, {
@@ -32,12 +46,13 @@ async function fetchAPI(endpoint: string, options = {}) {
 export async function getPortfolioItems(locale: Locale, category?: string): Promise<PortfolioItem[]> {
   const categoryQuery = category && category !== 'Todos' ? `&portfolio-category=${category}` : '';
   const data = await fetchAPI(`/portfolio?_embed${categoryQuery}&per_page=100${langParam(locale)}`);
-  return data;
+  return filterByLocale(data, locale);
 }
 
-export async function getPortfolioItem(locale: Locale, slug: string): Promise<PortfolioItem> {
+export async function getPortfolioItem(locale: Locale, slug: string): Promise<PortfolioItem | undefined> {
   const data = await fetchAPI(`/portfolio?slug=${slug}&_embed${langParam(locale)}`);
-  return data[0];
+  const item = data[0];
+  return item && localeFromLink(item.link) === locale ? item : undefined;
 }
 
 export async function getPortfolioCategories(locale: Locale): Promise<Category[]> {
@@ -60,12 +75,13 @@ export async function getTutorials(locale: Locale, category?: string): Promise<T
       return tutorial;
     })
   );
-  return data;
+  return filterByLocale(data, locale);
 }
 
-export async function getTutorial(locale: Locale, slug: string): Promise<Tutorial> {
+export async function getTutorial(locale: Locale, slug: string): Promise<Tutorial | undefined> {
   const data = await fetchAPI(`/tutorial?slug=${slug}&_embed${langParam(locale)}`);
-  return data[0];
+  const item = data[0];
+  return item && localeFromLink(item.link) === locale ? item : undefined;
 }
 
 export async function getTutorialCategories(locale: Locale): Promise<Category[]> {

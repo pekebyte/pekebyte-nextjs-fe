@@ -10,8 +10,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticPaths = [
     { path: '/', priority: 1, changeFrequency: 'weekly' as const },
     { path: '/about', priority: 0.8, changeFrequency: 'monthly' as const },
-    { path: '/portafolio', priority: 0.9, changeFrequency: 'weekly' as const },
-    { path: '/tutoriales', priority: 0.9, changeFrequency: 'weekly' as const },
+    { path: '/portfolio', priority: 0.9, changeFrequency: 'weekly' as const },
+    { path: '/tutorials', priority: 0.9, changeFrequency: 'weekly' as const },
     { path: '/contact', priority: 0.7, changeFrequency: 'monthly' as const },
   ];
 
@@ -37,7 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const portfolioItems = await getPortfolioItems(locale as Locale);
       portfolioItems.forEach((item) => {
         dynamicPages.push({
-          url: baseUrl + getLocalizedPath(`/portafolio/${item.slug}`, locale as Locale),
+          url: baseUrl + getLocalizedPath(`/portfolio/${item.slug}`, locale as Locale),
           lastModified: new Date(),
           changeFrequency: 'monthly',
           priority: 0.7,
@@ -47,7 +47,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const tutorials = await getTutorials(locale as Locale);
       tutorials.forEach((item) => {
         dynamicPages.push({
-          url: baseUrl + getLocalizedPath(`/tutoriales/${item.slug}`, locale as Locale),
+          url: baseUrl + getLocalizedPath(`/tutorials/${item.slug}`, locale as Locale),
           lastModified: new Date(),
           changeFrequency: 'monthly',
           priority: 0.7,
