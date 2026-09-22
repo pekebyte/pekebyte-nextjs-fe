@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const keywords = isEs
     ? "desarrollador full stack, plugins WordPress, apps Shopify, integración de IA, arquitectura headless"
     : "full stack developer, WordPress plugins, Shopify apps, AI integration, headless architecture";
-  const ogImageUrl = "/metadata/about.jpg";
+  const ogImageUrl = isEs ? "/metadata/about.jpg" : "/metadata/aboutme.jpeg";
 
   return {
     title,
