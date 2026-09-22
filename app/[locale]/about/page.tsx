@@ -6,6 +6,8 @@ import Link from "next/link";
 import { Locale, getLocalizedPath, buildAlternates } from "@/lib/i18n";
 import { getTranslations } from "@/lib/translations";
 
+export const revalidate = 3600;
+
 type Props = {
   params: Promise<{ locale: string }>;
 };
