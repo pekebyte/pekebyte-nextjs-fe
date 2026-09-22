@@ -14,13 +14,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const isEs = locale === 'es';
 
-  const title = isEs ? "Pekebyte - Sobre mí" : "Pekebyte - About";
+  const title = isEs ? "Sobre Pedro Molina — Desarrollador Full Stack, WordPress & Shopify" : "About Pedro Molina — Full Stack Developer, WordPress & Shopify";
   const description = isEs
-    ? "Conoce más sobre Pekebyte, su misión, visión y el equipo detrás del desarrollo web y contenido tecnológico de vanguardia."
-    : "Learn more about Pekebyte, its mission, vision, and the team behind cutting-edge web development and tech content.";
+    ? "Desarrollador full stack senior con más de 10 años de experiencia construyendo plugins de WordPress, arquitecturas headless y apps de Shopify con integración de IA para clientes internacionales."
+    : "Senior full-stack developer with 10+ years of experience building WordPress plugins, headless architectures, and AI-integrated Shopify apps for international clients.";
   const keywords = isEs
-    ? "Sobre mí, Misión, Visión, Equipo, Pekebyte"
-    : "About, Mission, Vision, Team, Pekebyte";
+    ? "desarrollador full stack, plugins WordPress, apps Shopify, integración de IA, arquitectura headless"
+    : "full stack developer, WordPress plugins, Shopify apps, AI integration, headless architecture";
   const ogImageUrl = "/metadata/about.jpg";
 
   return {
