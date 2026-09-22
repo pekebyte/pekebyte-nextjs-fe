@@ -93,6 +93,25 @@ const es = {
     projects: 'Cargando proyectos...',
     tutorials: 'Cargando tutoriales...',
   },
+  consent: {
+    ariaLabel: 'Aviso de cookies',
+    bannerText: 'Este sitio usa Google Analytics para entender cómo se utiliza y mejorar su contenido. No usamos publicidad ni compartimos tus datos con terceros.',
+    linkText: 'Política de privacidad',
+    accept: 'Aceptar',
+    reject: 'Rechazar',
+  },
+  privacy: {
+    title: 'Política de privacidad y cookies',
+    lastUpdated: 'Última actualización: 22 de septiembre de 2026',
+    intro: 'Este sitio web es un portafolio personal gestionado por Pedro Molina. Esta política explica qué datos se recogen, con qué finalidad y cómo puedes controlarlo.',
+    analyticsTitle: 'Google Analytics',
+    analyticsText: 'Este sitio usa Google Analytics 4 (GA4), el servicio de analítica de Google, para conocer de forma agregada cómo se utiliza la web (páginas visitadas, tiempo de estancia, origen del tráfico) y poder mejorarla. Google Analytics puede instalar cookies como _ga y _ga_* que guardan un identificador anónimo para distinguir visitantes. No se usa para publicidad, remarketing ni para crear perfiles de preferencias.',
+    cookiesTitle: 'Gestión de cookies y consentimiento',
+    cookiesText: 'Google Analytics solo se activa si aceptas el uso de cookies. Al cargar tu primera visita, Google queda configurado por defecto en estado de rechazo (Consent Mode de Google) y no se recoge ningún dato hasta que aceptas. Puedes decidir en cualquier momento volviendo a borrar tus cookies de este sitio, momento en el que se volverá a mostrar el aviso. También puedes bloquear o eliminar todas las cookies desde los ajustes de tu navegador.',
+    rightsTitle: 'Tus derechos',
+    rightsText: 'Puedes ejercer tus derechos de acceso, rectificación, supresión, oposición y limitación, y retirar tu consentimiento en cualquier momento escribiendo a través del formulario de contacto de este sitio.',
+    backHome: 'Volver al inicio',
+  },
 };
 
 export default es;

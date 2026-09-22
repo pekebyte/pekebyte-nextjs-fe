@@ -6,7 +6,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Navigation from "@/components/Navigation";
-import { GoogleAnalytics } from '@next/third-parties/google'
+import Analytics from "@/components/Analytics";
+import CookieConsent from "@/components/CookieConsent";
 import { locales, SITE_URL } from '@/lib/i18n'
 
 export function generateStaticParams() {
@@ -48,15 +49,33 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   return (
     <html lang={lang} suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window['dataLayer'] = window['dataLayer'] || [];
+              function gtag(){window['dataLayer'].push(arguments);}
+              gtag('consent', 'default', {
+                ad_storage: 'denied',
+                ad_user_data: 'denied',
+                ad_personalization: 'denied',
+                analytics_storage: 'denied',
+                wait_for_update: 500,
+              });
+            `,
+          }}
+        />
+      </head>
       <body className={`${poppins.variable} ${firaCode.variable}`}>
         <TooltipProvider>
           <Toaster />
           <Sonner />
           <Navigation locale={lang} />
           {children}
+          <Analytics />
+          <CookieConsent locale={lang} />
         </TooltipProvider>
       </body>
-      <GoogleAnalytics gaId="G-EF72Q8YR64" />
     </html>
   );
 }

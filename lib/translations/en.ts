@@ -93,6 +93,25 @@ const en = {
     projects: 'Loading projects...',
     tutorials: 'Loading tutorials...',
   },
+  consent: {
+    ariaLabel: 'Cookie notice',
+    bannerText: 'This site uses Google Analytics to understand how it is used and to improve its content. We do not use advertising or share your data with third parties.',
+    linkText: 'Privacy policy',
+    accept: 'Accept',
+    reject: 'Reject',
+  },
+  privacy: {
+    title: 'Privacy and cookie policy',
+    lastUpdated: 'Last updated: September 22, 2026',
+    intro: 'This website is a personal portfolio managed by Pedro Molina. This policy explains what data is collected, for what purpose, and how you can control it.',
+    analyticsTitle: 'Google Analytics',
+    analyticsText: 'This site uses Google Analytics 4 (GA4), Google\'s analytics service, to gain aggregated insight into how the website is used (pages visited, time on site, traffic source) in order to improve it. Google Analytics may place cookies such as _ga and _ga_* that store an anonymous identifier to distinguish visitors. It is not used for advertising, remarketing, or building preference profiles.',
+    cookiesTitle: 'Cookie management and consent',
+    cookiesText: 'Google Analytics is only activated if you accept the use of cookies. On your first visit, Google is set to denied by default (Google Consent Mode) and no data is collected until you accept. You can decide again at any time by clearing this site\'s cookies, which will show the notice again. You can also block or delete all cookies from your browser settings.',
+    rightsTitle: 'Your rights',
+    rightsText: 'You can exercise your rights of access, rectification, erasure, objection, and restriction, and withdraw your consent at any time by writing through this site\'s contact form.',
+    backHome: 'Back to Home',
+  },
 };
 
 export default en;
